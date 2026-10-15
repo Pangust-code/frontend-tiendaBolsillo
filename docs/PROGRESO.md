@@ -86,4 +86,21 @@ La pantalla `/perfil/verificacion` ahora contempla los bloques observados en las
 
 El botón de envío permanece deshabilitado hasta seleccionar los archivos requeridos. La validación de formato, tamaño, datos fiscales y envío al administrador quedan pendientes de backend.
 
+## Etapa 6 — Documentación técnica
+
+Se creó documentación completa inicial con:
+
+- Arquitectura de la aplicación y relaciones entre componentes.
+- Diagramas Mermaid de arquitectura y flujo de verificación.
+- Inventario tecnológico y de componentes.
+- Entidades de negocio y reglas principales.
+- Flujos de registro, verificación y operación del comercio.
+- Índice general de documentación.
+
+Archivos:
+
+- `docs/README.md`
+- `.github/modernize/assessment/engines/facts/architecture-diagram.md`
+- `.github/modernize/assessment/engines/facts/business-workflows.md`
+
 El flujo tomará como referencia las capturas de creación de negocio, selección de categorías, ubicación en mapa y confirmación exitosa.
