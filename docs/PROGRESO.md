@@ -174,3 +174,8 @@ El flujo tomará como referencia las capturas de creación de negocio, selecció
 - `Mi perfil` y `Salir` tienen iconos, flechas de apoyo y realce al pasar el mouse.
 - Se añadió una entrada suave del menú sin abusar de sombras, colores o bordes redondeados.
 - La revisión visual mantiene una interfaz minimalista, pero con suficiente contraste, jerarquía y respuesta al usuario.
+
+## Etapa 15 — Ajuste de acciones del menú
+
+- Se retiraron las flechas de las acciones `Mi perfil` y `Salir`.
+- Los iconos de ambas acciones se fijaron en una fila horizontal, a la izquierda de sus textos.

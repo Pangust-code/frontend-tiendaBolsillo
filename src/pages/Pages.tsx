@@ -79,7 +79,7 @@ export function AppLayout() {
             <button className={`profile-button ${profileOpen ? 'profile-open' : ''}`} onClick={() => setProfileOpen(!profileOpen)}>
               <span className="avatar">PS</span><span className="profile-name">Pangust System</span><span className="chevron">{profileOpen ? '⌄' : '-'}</span>
             </button>
-            {profileOpen && <div className="profile-menu"><div className="profile-menu-heading"><span className="menu-avatar">PS</span><div><strong>Pangust System</strong><span>Perfil incompleto</span></div></div><hr /><button className="profile-menu-item" onClick={() => { setProfileOpen(false); navigate('/perfil') }}><span>◉</span><strong>Mi perfil</strong><b>→</b></button><button className="profile-menu-item profile-menu-exit" onClick={() => { setProfileOpen(false); navigate('/login') }}><span>↪</span><strong>Salir</strong><b>→</b></button></div>}
+            {profileOpen && <div className="profile-menu"><div className="profile-menu-heading"><span className="menu-avatar">PS</span><div><strong>Pangust System</strong><span>Perfil incompleto</span></div></div><hr /><button className="profile-menu-item" onClick={() => { setProfileOpen(false); navigate('/perfil') }}><span>◉</span><strong>Mi perfil</strong></button><button className="profile-menu-item profile-menu-exit" onClick={() => { setProfileOpen(false); navigate('/login') }}><span>↪</span><strong>Salir</strong></button></div>}
           </div>
         </header>
         <div className="page"><Outlet /></div>

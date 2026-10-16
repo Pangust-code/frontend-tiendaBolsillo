@@ -92,19 +92,17 @@ body.dark-mode .profile-menu hr { border-color: #374151; }
 .profile-menu-heading strong { font-size: 13px; }
 .profile-menu-heading span { margin-top: 3px; color: #ba6d29; font-size: 11px; }
 .profile-menu hr { margin: 12px 0 8px; }
-.profile-menu-item { display: flex; align-items: center; gap: 9px; width: 100%; padding: 10px 9px; color: var(--ink); background: transparent; border: 1px solid transparent; border-radius: 5px; text-align: left; transition: background-color .18s ease, border-color .18s ease, color .18s ease, transform .18s ease; }
-.profile-menu-item > span { width: 20px; color: var(--muted); font-size: 17px; text-align: center; }
+.profile-menu-item { display: flex !important; flex-direction: row; align-items: center; gap: 9px; width: 100%; padding: 10px 9px; color: var(--ink); background: transparent; border: 1px solid transparent; border-radius: 5px; text-align: left; transition: background-color .18s ease, border-color .18s ease, color .18s ease, transform .18s ease; }
+.profile-menu-item > span { display: grid !important; width: 20px; flex: 0 0 20px; color: var(--muted); font-size: 17px; text-align: center; }
 .profile-menu-item strong { flex: 1; font-size: 12px; }
-.profile-menu-item b { color: #b7bfca; font-size: 15px; font-weight: 700; }
 .profile-menu-item:hover { transform: translateX(3px); color: var(--red); background: #fff4f4; border-color: #f3d1d2; }
-.profile-menu-item:hover > span, .profile-menu-item:hover b { color: var(--red); }
+.profile-menu-item:hover > span { color: var(--red); }
 .profile-menu-exit { margin-top: 2px; }
 .profile-menu-exit:hover { color: #b4232a; background: #fff1f1; border-color: #f0c4c6; }
 body.dark-mode .profile-menu-heading span { color: #f1bd76; }
 body.dark-mode .menu-avatar { background: #493036; }
 body.dark-mode .profile-menu-item { color: #f3f4f6; }
 body.dark-mode .profile-menu-item > span { color: #c3ccda; }
-body.dark-mode .profile-menu-item b { color: #9ca8b8; }
 body.dark-mode .profile-menu-item:hover { color: #ff969b; background: #352328; border-color: #8f4147; }
-body.dark-mode .profile-menu-item:hover > span, body.dark-mode .profile-menu-item:hover b { color: #ff969b; }
+body.dark-mode .profile-menu-item:hover > span { color: #ff969b; }
 @keyframes menu-enter { from { opacity: 0; transform: translateY(-5px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
