@@ -222,6 +222,12 @@ El flujo tomará como referencia las capturas de creación de negocio, selecció
 - El segundo nombre, apellido materno, email y nombramiento permanecen opcionales y no bloquean el envío.
 - Para persona natural se conserva el flujo y los requisitos documentales anteriores.
 
+## Etapa 24 — Respaldo de identidad según tipo de persona
+
+- Para persona jurídica se retiró la selfie con documento, porque la cédula del representante legal es el respaldo de identidad solicitado.
+- La selfie continúa disponible únicamente para persona natural.
+- El requisito documental obligatorio de persona jurídica queda compuesto por RUC, fotografías, cédula del representante legal y certificado bancario.
+
 ## Etapa 18 — Hover de filtros de métricas
 
 - Se reemplazó el hover rojo sólido de los periodos de métricas por un fondo neutro de alto contraste.
