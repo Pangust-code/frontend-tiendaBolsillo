@@ -186,3 +186,10 @@ El flujo tomará como referencia las capturas de creación de negocio, selecció
 - Se aumentó el contraste de etiquetas, títulos y descripciones.
 - El botón de cada publicidad conserva una superficie clara y un estado hover visible.
 - Las formas decorativas también se adaptan al fondo para no competir con el contenido.
+
+## Etapa 17 — Contraste de acciones rápidas
+
+- Las tarjetas de acciones rápidas ahora tienen fondo y borde adecuados para el modo oscuro.
+- Los títulos y descripciones mantienen contraste alto.
+- Los iconos usan un fondo de acento separado para conservar jerarquía visual.
+- El hover tiene realce propio sin aumentar excesivamente la saturación.
