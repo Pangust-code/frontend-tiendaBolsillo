@@ -126,3 +126,11 @@ body.dark-mode .metrics-filters { background: #1f2937; border-color: #374151; }
 body.dark-mode .metrics-filters button:hover { color: #f3f4f6; background: #374151; }
 body.dark-mode .metrics-filters button.selected:hover { color: #ff969b; background: #2b3545; box-shadow: inset 0 0 0 1px #8f4147; }
 @keyframes menu-enter { from { opacity: 0; transform: translateY(-5px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.login-error { margin: 12px 0 -4px; padding: 10px 12px; color: #a51f27; background: #fff0f0; border: 1px solid #f3c4c6; border-radius: 5px; font-size: 12px; font-weight: 700; }
+.demo-credentials { display: grid; gap: 3px; margin-top: 16px; padding: 12px; color: #596579; background: #f7f8fa; border: 1px solid var(--line); border-radius: 5px; font-size: 11px; }
+.demo-credentials strong { color: var(--ink); font-size: 12px; }
+.demo-credentials button { justify-self: start; margin-top: 5px; padding: 0; color: var(--red); background: transparent; font-size: 11px; font-weight: 800; }
+.demo-credentials button:hover { text-decoration: underline; }
+body.dark-mode .demo-credentials { color: #c3ccda; background: #1f2937; border-color: #374151; }
+body.dark-mode .demo-credentials strong { color: #f3f4f6; }
+body.dark-mode .login-error { color: #ffb2b5; background: #41252b; border-color: #8f4147; }

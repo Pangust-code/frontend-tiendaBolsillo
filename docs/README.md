@@ -21,6 +21,15 @@ El proyecto es un prototipo frontend responsive para el perfil de negocio de Tie
 | Administración | `/perfil`, `/perfil/editar`, `/perfil/verificacion` |
 | Cuenta | `/perfil/direcciones`, `/perfil/bancos`, `/mensajes`, `/notificaciones` |
 
+## Acceso de demostración
+
+Al abrir la aplicación se muestra `/login`. El prototipo incluye un acceso demo:
+
+- Usuario: `pangustsystem@gmail.com` o `Pangust System`
+- Contraseña: `Pangust2026!`
+
+La validación es local y simulada. No representa todavía autenticación real ni debe reutilizarse como credencial de producción.
+
 ## Cómo ejecutar
 
 ```powershell

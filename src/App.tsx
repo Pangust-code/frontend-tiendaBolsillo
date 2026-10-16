@@ -24,6 +24,7 @@ import {
 function App() {
   return (
     <Routes>
+      <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/registro" element={<RegistrationStartPage />} />
       <Route path="/registro/negocio" element={<RegistrationBusinessPage />} />
@@ -47,7 +48,7 @@ function App() {
         <Route path="/mensajes" element={<SimpleAdminPage title="Mensajes" description="Tus conversaciones con clientes aparecerán aquí." icon="◌" />} />
         <Route path="/notificaciones" element={<SimpleAdminPage title="Notificaciones" description="Aquí aparecerán tus alertas y actualizaciones." icon="♧" />} />
       </Route>
-      <Route path="*" element={<Navigate to="/inicio" replace />} />
+      <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   )
 }

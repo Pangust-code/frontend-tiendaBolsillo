@@ -200,6 +200,13 @@ El flujo tomará como referencia las capturas de creación de negocio, selecció
 - La tarjeta conserva su espacio para evitar saltos en el panel.
 - La pausa al pasar el mouse y los indicadores de posición se mantienen sin cambios.
 
+## Etapa 21 — Inicio y acceso de demostración
+
+- La ruta raíz y las rutas desconocidas ahora redirigen a `/login`.
+- El formulario ya no acepta cualquier texto: valida el usuario demo `pangustsystem@gmail.com` o `Pangust System`.
+- Se configuró la contraseña demo fija `Pangust2026!` y un botón para completar los datos automáticamente.
+- Los errores de acceso se muestran explícitamente en el formulario.
+
 ## Etapa 18 — Hover de filtros de métricas
 
 - Se reemplazó el hover rojo sólido de los periodos de métricas por un fondo neutro de alto contraste.

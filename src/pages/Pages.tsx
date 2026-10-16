@@ -4,6 +4,8 @@ import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 type View = 'inicio' | 'ofertas' | 'cobros' | 'entregas'
 const FONT_STORAGE_KEY = 'tienda-bolsillo-font'
 const THEME_STORAGE_KEY = 'tienda-bolsillo-theme'
+const DEMO_EMAIL = 'pangustsystem@gmail.com'
+const DEMO_PASSWORD = 'Pangust2026!'
 
 function applyStoredFont(font: string) {
   document.documentElement.style.setProperty('--app-font', `"${font}"`)
@@ -93,10 +95,18 @@ export function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [loginError, setLoginError] = useState('')
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    if (email.trim() && password.trim()) navigate('/inicio')
+    const identifier = email.trim().toLowerCase()
+    const validIdentifier = identifier === DEMO_EMAIL || identifier === 'pangust system'
+    if (validIdentifier && password === DEMO_PASSWORD) {
+      setLoginError('')
+      navigate('/inicio')
+      return
+    }
+    setLoginError('Revisa el usuario y la contraseña de demostración.')
   }
 
   function RegistrationStart() {
@@ -137,7 +147,7 @@ export function LoginPage() {
   return (
     <main className="auth-page">
       <section className="auth-visual">
-        <Link className="auth-brand" to="/inicio"><span className="auth-brand-mark">tb</span><strong>tienda <b>bolsillo</b></strong></Link>
+        <Link className="auth-brand" to="/login"><span className="auth-brand-mark">tb</span><strong>tienda <b>bolsillo</b></strong></Link>
         <div className="auth-message"><span className="auth-kicker">PARA NEGOCIOS LOCALES</span><h1>Tu negocio,<br /><em>más cerca.</em></h1><p>Conecta con clientes de tu zona y haz crecer tu negocio con Tienda Bolsillo.</p><div className="auth-orbit"><span>✦</span><span>+</span><span>↗</span></div></div>
       </section>
       <section className="auth-form-wrap">
@@ -147,7 +157,9 @@ export function LoginPage() {
           <label htmlFor="email">Correo electrónico</label><input id="email" type="email" placeholder="tu@correo.com" value={email} onChange={(event) => setEmail(event.target.value)} required />
           <div className="label-row"><label htmlFor="password">Contraseña</label><button type="button" className="forgot-button">¿La olvidaste?</button></div>
           <div className="password-field"><input id="password" type={showPassword ? 'text' : 'password'} placeholder="Ingresa tu contraseña" value={password} onChange={(event) => setPassword(event.target.value)} required /><button type="button" aria-label="Mostrar contraseña" onClick={() => setShowPassword(!showPassword)}>{showPassword ? '◉' : '◌'}</button></div>
+          {loginError && <p className="login-error" role="alert">{loginError}</p>}
           <button className="primary-button auth-submit" type="submit">Iniciar sesión <span>→</span></button>
+          <div className="demo-credentials"><strong>Acceso de demostración</strong><small>Usuario: pangustsystem@gmail.com</small><small>Contraseña: Pangust2026!</small><button type="button" onClick={() => { setEmail(DEMO_EMAIL); setPassword(DEMO_PASSWORD); setLoginError('') }}>Usar estos datos</button></div>
           <div className="auth-divider"><span>o</span></div>
           <p className="register-prompt">¿Aún no tienes una cuenta?</p><Link className="secondary-auth-button" to="/registro">Crear cuenta de negocio</Link>
           <small className="auth-legal">Al continuar, aceptas nuestros <a href="#terminos">Términos y condiciones</a> y <a href="#privacidad">Política de privacidad</a>.</small>
