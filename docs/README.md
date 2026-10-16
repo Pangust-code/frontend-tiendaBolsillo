@@ -5,6 +5,7 @@
 - [Progreso](./PROGRESO.md)
 - [Arquitectura](../.github/modernize/assessment/engines/facts/architecture-diagram.md)
 - [Flujos de negocio](../.github/modernize/assessment/engines/facts/business-workflows.md)
+- [Documentación LaTeX](../latex/main.tex)
 
 ## Alcance actual
 
@@ -31,3 +32,23 @@ npm run build
 ## Próxima documentación recomendada
 
 Cuando exista backend, agregar contratos de API, modelo de datos, reglas de autorización, estrategia de pruebas y guía de despliegue.
+
+## Estructura LaTeX
+
+La documentación editable para generar un PDF se encuentra en [`latex/`](../latex/):
+
+```text
+latex/
+├── main.tex
+├── packages.sty
+├── title.tex
+├── Sections/
+└── Images/
+```
+
+Para compilarla con MiKTeX:
+
+```powershell
+cd latex
+pdflatex main.tex
+```

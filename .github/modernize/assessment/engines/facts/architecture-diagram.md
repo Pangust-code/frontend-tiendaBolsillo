@@ -1,98 +1,98 @@
 # Architecture Diagram
 
-El frontend de Tienda Bolsillo es una SPA responsive para administrar un comercio local. En esta fase utiliza datos simulados y navegación local; el backend, autenticación real y persistencia quedan preparados como siguientes integraciones.
+El frontend de Tienda Bolsillo es una SPA responsive para administrar un comercio local. En esta fase utiliza datos simulados y navegación local.
 
-## Application Architecture
+## Arquitectura de la aplicación
 
 <!-- mermaid-checked: no \n, no em-dash/en-dash, no {} in labels, subgraphs are id["label"], arrows are -->|"label"|, all subgraphs closed by end, ids unique -->
 ~~~mermaid
 flowchart TD
-    subgraph Client["Client Layer"]
-        Browser["Web Browser"]
+    subgraph Client["Capa del cliente"]
+        Browser["Navegador web"]
     end
-    subgraph App["Application Layer"]
-        React["React UI"]
+    subgraph App["Capa de aplicación"]
+        React["Interfaz React"]
         Router["React Router"]
-        State["Local UI State"]
+        State["Estado local de interfaz"]
     end
-    subgraph Assets["Project Assets"]
-        Styles["Responsive CSS"]
-        Docs["Project Documentation"]
+    subgraph Assets["Recursos del proyecto"]
+        Styles["CSS adaptable"]
+        Docs["Documentación del proyecto"]
     end
-    subgraph Future["Future Services"]
-        API["Backend API"]
-        Storage["File Storage"]
+    subgraph Future["Servicios futuros"]
+        API["API del backend"]
+        Storage["Almacenamiento de archivos"]
     end
 
-    Browser -->|"loads SPA"| React
-    React -->|"navigates routes"| Router
-    React -->|"controls forms"| State
-    React -->|"uses visual system"| Styles
-    React -.->|"future integration"| API
-    API -.->|"future uploads"| Storage
-    Docs -.->|"guides implementation"| React
+    Browser -->|"carga la SPA"| React
+    React -->|"navega entre rutas"| Router
+    React -->|"controla formularios"| State
+    React -->|"usa el sistema visual"| Styles
+    React -.->|"integración futura"| API
+    API -.->|"cargas futuras"| Storage
+    Docs -.->|"guía la implementación"| React
 ~~~
 
-### Technology Stack Summary
+### Resumen de tecnologías
 
-| Layer | Technology | Version | Purpose |
+| Capa | Tecnología | Versión | Propósito |
 |---|---|---:|---|
-| UI | React | 19 | Component-based interface |
-| Language | TypeScript | 5.9 | Type safety |
-| Build | Vite | 7 | Development server and production build |
-| Routing | React Router | 7 | Independent application routes |
-| Styling | CSS | Native | Responsive visual system |
-| Validation | HTML and React state | Current | Frontend-only form interaction |
+| Interfaz | React | 19 | Interfaz basada en componentes |
+| Lenguaje | TypeScript | 5.9 | Seguridad de tipos |
+| Construcción | Vite | 7 | Servidor de desarrollo y compilación |
+| Enrutamiento | React Router | 7 | Rutas independientes de la aplicación |
+| Estilos | CSS | Nativo | Sistema visual adaptable |
+| Validación | HTML y estado de React | Actual | Interacción de formularios del frontend |
 
-### Data Storage & External Services
+### Almacenamiento de datos y servicios externos
 
-The current version does not connect to a database, API, authentication provider, map provider, or file storage service. Forms and uploaded file names are simulated in memory. A future backend should persist the merchant profile, KYC data, bank account metadata, document references, notifications, offers, payments, and deliveries.
+La versión actual no se conecta a una base de datos, API, proveedor de autenticación, proveedor de mapas ni servicio de almacenamiento de archivos. Los formularios y nombres de archivos cargados se simulan en memoria. Un backend futuro debería persistir el perfil del comercio, los datos de verificación, la información bancaria, las referencias documentales, las notificaciones, ofertas, cobros y entregas.
 
-### Key Architectural Decisions
+### Decisiones arquitectónicas principales
 
-- Routes are separated by business area instead of keeping all screens in one view.
-- Reusable layout, form, modal, card, and empty-state patterns keep the UI consistent.
-- The frontend is deliberately decoupled from backend assumptions so API integration can be added later.
+- Las rutas se separan por área del negocio en lugar de mantener todas las pantallas en una sola vista.
+- Los patrones reutilizables de layout, formularios, modales, tarjetas y estados vacíos mantienen la interfaz consistente.
+- El frontend está desacoplado de supuestos del backend para permitir integrar una API más adelante.
 
-## Component Relationships
+## Relaciones entre componentes
 
 <!-- mermaid-checked: no \n, no em-dash/en-dash, no {} in labels, subgraphs are id["label"], arrows are -->|"label"|, all subgraphs closed by end, ids unique -->
 ~~~mermaid
 flowchart LR
-    subgraph PresentationLayer["Presentation"]
-        cApp["App Routes"]
-        cLayout["App Layout"]
-        cPages["Page Components"]
+    subgraph PresentationLayer["Presentación"]
+        cApp["Rutas de App"]
+        cLayout["Layout de la aplicación"]
+        cPages["Componentes de página"]
     end
-    subgraph StateLayer["UI State"]
-        cForms["Registration Forms"]
-        cAdmin["Admin State"]
+    subgraph StateLayer["Estado de interfaz"]
+        cForms["Formularios de registro"]
+        cAdmin["Estado administrativo"]
     end
-    subgraph InfrastructureLayer["Infrastructure"]
-        cRouter["Browser Router"]
-        cCss["Responsive CSS"]
-        cBuild["Vite Build"]
+    subgraph InfrastructureLayer["Infraestructura"]
+        cRouter["Enrutador del navegador"]
+        cCss["CSS adaptable"]
+        cBuild["Compilación de Vite"]
     end
 
-    cApp -->|"declares"| cRouter
-    cRouter -->|"renders"| cLayout
-    cLayout -->|"hosts"| cPages
-    cPages -->|"updates"| cForms
-    cPages -->|"updates"| cAdmin
-    cPages -->|"uses"| cCss
-    cBuild -->|"bundles"| cApp
+    cApp -->|"declara"| cRouter
+    cRouter -->|"renderiza"| cLayout
+    cLayout -->|"aloja"| cPages
+    cPages -->|"actualiza"| cForms
+    cPages -->|"actualiza"| cAdmin
+    cPages -->|"usa"| cCss
+    cBuild -->|"empaqueta"| cApp
 ~~~
 
-### Component Inventory
+### Inventario de componentes
 
-| Component | Layer | Type | Responsibility |
+| Componente | Capa | Tipo | Responsabilidad |
 |---|---|---|---|
-| App | Presentation | Route container | Maps URLs to screens |
-| AppLayout | Presentation | Shared layout | Sidebar, topbar and page outlet |
-| Dashboard | Presentation | Page | Business summary and quick actions |
-| LoginPage | Presentation | Page | Simulated login flow |
-| Registration pages | Presentation | Page flow | Business onboarding |
-| Profile pages | Presentation | Admin pages | KYC, profile, addresses and banks |
-| Modal | Presentation | Shared component | Local confirmation and data entry |
-| React state | UI State | State management | Temporary form and modal data |
-| Responsive CSS | Infrastructure | Stylesheet | Desktop and mobile adaptation |
+| App | Presentación | Contenedor de rutas | Asocia URL con pantallas |
+| AppLayout | Presentación | Layout compartido | Barra lateral, barra superior y contenido |
+| Dashboard | Presentación | Página | Resumen del negocio y acciones rápidas |
+| LoginPage | Presentación | Página | Flujo de inicio de sesión simulado |
+| Páginas de registro | Presentación | Flujo de páginas | Incorporación del negocio |
+| Páginas de perfil | Presentación | Páginas administrativas | Verificación, perfil, direcciones y bancos |
+| Modal | Presentación | Componente compartido | Confirmaciones y captura de datos local |
+| Estado de React | Estado de interfaz | Gestión de estado | Datos temporales de formularios y modales |
+| CSS adaptable | Infraestructura | Hoja de estilos | Adaptación para escritorio y móvil |

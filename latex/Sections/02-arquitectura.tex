@@ -1,0 +1,30 @@
+\section{Arquitectura de la aplicación}
+
+\subsection{Tecnologías}
+
+\begin{longtable}{p{0.22\textwidth} p{0.22\textwidth} p{0.16\textwidth} p{0.30\textwidth}}
+\toprule
+\textbf{Capa} & \textbf{Tecnología} & \textbf{Versión} & \textbf{Propósito} \\
+\midrule
+Interfaz & React & 19 & Construcción basada en componentes \\
+Lenguaje & TypeScript & 5.9 & Seguridad de tipos \\
+Construcción & Vite & 7 & Desarrollo y compilación de producción \\
+Enrutamiento & React Router & 7 & Navegación entre pantallas \\
+Estilos & CSS nativo & Actual & Diseño responsive y temas visuales \\
+\bottomrule
+\end{longtable}
+
+\subsection{Organización}
+
+La aplicación separa las rutas en un archivo principal y concentra las pantallas en el módulo de páginas. El sistema visual global se mantiene en una hoja CSS compartida. La documentación técnica se conserva fuera de \texttt{src} para no mezclar código ejecutable con artefactos de análisis.
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{src/App.tsx}: definición central de rutas.
+  \item \textbf{src/pages/Pages.tsx}: layout y pantallas del frontend.
+  \item \textbf{src/styles.css}: estilos responsive, interacción y temas.
+  \item \textbf{docs}: índice y bitácora de desarrollo.
+\end{itemize}
+
+\subsection{Servicios futuros}
+
+La integración futura deberá incorporar una API para persistir perfiles, verificaciones, cuentas bancarias, ofertas, cobros, entregas y notificaciones. También deberá definirse un almacenamiento seguro para los documentos y un proveedor de mapas para las ubicaciones.
