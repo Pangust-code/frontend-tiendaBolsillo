@@ -105,4 +105,14 @@ body.dark-mode .profile-menu-item { color: #f3f4f6; }
 body.dark-mode .profile-menu-item > span { color: #c3ccda; }
 body.dark-mode .profile-menu-item:hover { color: #ff969b; background: #352328; border-color: #8f4147; }
 body.dark-mode .profile-menu-item:hover > span { color: #ff969b; }
+body.dark-mode .promo-art { background: linear-gradient(115deg, #4b2930, #4a3a25); color: #fff7f7; }
+body.dark-mode .promo-second { background: linear-gradient(115deg, #193b55, #214936); }
+body.dark-mode .promo-art span { color: #ffb0b3; }
+body.dark-mode .promo-art strong { color: #fff; }
+body.dark-mode .promo-art small { color: #f0dfe0; }
+body.dark-mode .promo-second small { color: #d8eee2; }
+body.dark-mode .promo-shape { color: #f28c91; opacity: .7; }
+body.dark-mode .promo-second .promo-shape { color: #9fd4bd; }
+body.dark-mode .promo-art .light-button { color: #8f1d25; background: #fff; box-shadow: 0 3px 10px #00000030; }
+body.dark-mode .promo-art .light-button:hover { color: #fff; background: #e52429; }
 @keyframes menu-enter { from { opacity: 0; transform: translateY(-5px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }

@@ -179,3 +179,10 @@ El flujo tomará como referencia las capturas de creación de negocio, selecció
 
 - Se retiraron las flechas de las acciones `Mi perfil` y `Salir`.
 - Los iconos de ambas acciones se fijaron en una fila horizontal, a la izquierda de sus textos.
+
+## Etapa 16 — Contraste de promociones en modo oscuro
+
+- Se ajustaron los fondos de ambos anuncios para el tema oscuro.
+- Se aumentó el contraste de etiquetas, títulos y descripciones.
+- El botón de cada publicidad conserva una superficie clara y un estado hover visible.
+- Las formas decorativas también se adaptan al fondo para no competir con el contenido.
