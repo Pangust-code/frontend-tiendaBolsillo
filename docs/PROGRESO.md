@@ -103,4 +103,24 @@ Archivos:
 - `.github/modernize/assessment/engines/facts/architecture-diagram.md`
 - `.github/modernize/assessment/engines/facts/business-workflows.md`
 
+## Etapa 7 — Ajustes de navegación y operación
+
+- Se añadió la ruta `/inicio/metricas` con periodos de 7, 30 y 90 días y rango personalizado.
+- El rango personalizado permite escoger fecha inicial y final.
+- El acceso a perfil ahora funciona desde el avatar superior; se eliminó el botón redundante del inicio.
+- El perfil incluye disponibilidad, tipo de letra, notificaciones confiables, suscripciones, Mi negocio, gestión de cuentas y cerrar sesión.
+- La campana enlaza a notificaciones y se muestra oscura dentro de esa ruta.
+- Ofertas, cobros y entregas ahora muestran ejemplos y estados explícitos:
+  `Disponibles`, `Aceptadas`, `Esperando cliente`, `Pendientes`, `Recibidos`, `Anulados`, `Completadas` y `Canceladas`.
+- Se redujo el uso de bordes redondeados para una interfaz más sobria.
+
+## Etapa 8 — Negocio, suscripción y gestión de cuenta
+
+- `Mi negocio` muestra miembro desde, actividades comerciales y ubicación.
+- El registro permite seleccionar múltiples actividades comerciales.
+- `Suscripciones` muestra Plan Freemium activo, vencimiento, tiempo restante y enlace a `tiendabolsillo.com`.
+- `Gestión de cuentas` incluye suspensión y eliminación con advertencias y confirmación.
+- Los ejemplos de ofertas, cobros y entregas cambian según cada pestaña.
+- El panel promocional incluye más de un anuncio y el enlace externo funciona.
+
 El flujo tomará como referencia las capturas de creación de negocio, selección de categorías, ubicación en mapa y confirmación exitosa.

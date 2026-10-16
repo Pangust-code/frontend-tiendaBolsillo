@@ -26,6 +26,7 @@ function App() {
       <Route path="/registro/confirmacion" element={<RegistrationConfirmationPage />} />
       <Route element={<AppLayout />}>
         <Route path="/inicio" element={<Dashboard />} />
+        <Route path="/inicio/metricas" element={<MetricsPage />} />
         <Route path="/ofertas" element={<EmptyModule view="ofertas" />} />
         <Route path="/cobros" element={<EmptyModule view="cobros" />} />
         <Route path="/entregas" element={<EmptyModule view="entregas" />} />
@@ -34,6 +35,9 @@ function App() {
         <Route path="/perfil/verificacion" element={<VerificationPage />} />
         <Route path="/perfil/direcciones" element={<AddressesPage />} />
         <Route path="/perfil/bancos" element={<BanksPage />} />
+        <Route path="/perfil/suscripciones" element={<SubscriptionsPage />} />
+        <Route path="/perfil/negocio" element={<BusinessPage />} />
+        <Route path="/perfil/cuentas" element={<AccountManagementPage />} />
         <Route path="/mensajes" element={<SimpleAdminPage title="Mensajes" description="Tus conversaciones con clientes aparecerán aquí." icon="◌" />} />
         <Route path="/notificaciones" element={<SimpleAdminPage title="Notificaciones" description="Aquí aparecerán tus alertas y actualizaciones." icon="♧" />} />
       </Route>
@@ -46,6 +50,7 @@ function AppLayout() {
   const [profileOpen, setProfileOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
+  const navigate = useNavigate()
   const activeItem = navItems.find((item) => item.path === location.pathname) ?? navItems[0]
 
   return (
@@ -64,7 +69,7 @@ function AppLayout() {
           ))}
         </nav>
         <div className="sidebar-bottom">
-          <button className="nav-item" onClick={() => setProfileOpen(true)}><span className="nav-icon">⚙</span><span>Configuración</span></button>
+          <button className="nav-item" onClick={() => navigate('/perfil')}><span className="nav-icon">⚙</span><span>Configuración</span></button>
           <div className="help-card"><span>?</span><div><strong>¿Necesitas ayuda?</strong><small>Estamos para ayudarte</small></div></div>
         </div>
       </aside>
@@ -74,11 +79,12 @@ function AppLayout() {
           <button className="menu-button" aria-label="Abrir menú" onClick={() => setMenuOpen(!menuOpen)}>☰</button>
           <div className="breadcrumbs"><span>Mi negocio</span><b>/</b><strong>{activeItem.label}</strong></div>
           <div className="topbar-actions">
-            <Link className="notification-button" aria-label="Notificaciones" to="/notificaciones">♧<i /></Link>
+            <Link className={`notification-button ${location.pathname === '/notificaciones' ? 'active' : ''}`} aria-label="Notificaciones" to="/notificaciones">🔔<i /></Link>
             <button className="profile-button" onClick={() => setProfileOpen(!profileOpen)}>
-              <span className="avatar">PS</span><span className="profile-name">Pangust Sustem</span><span className="chevron">⌄</span>
+              <span className="avatar">PS</span><span className="profile-name">Pangust System
+                </span><span className="chevron">⌄</span>
             </button>
-            {profileOpen && <div className="profile-menu"><strong>Pangust Sustem</strong><span>Perfil incompleto</span><hr /><button>Mi perfil</button><button onClick={() => setProfileOpen(false)}>Cerrar menú</button></div>}
+            {profileOpen && <div className="profile-menu"><strong>Pangust System</strong><span>Perfil incompleto</span><hr /><button onClick={() => { setProfileOpen(false); navigate('/perfil') }}>Mi perfil</button><button onClick={() => { setProfileOpen(false); navigate('/login') }}>Salir</button></div>}
           </div>
         </header>
         <div className="page"><Outlet /></div>
@@ -111,7 +117,8 @@ function LoginPage() {
     const navigate = useNavigate()
     const [form, setForm] = useState({ email: '', password: '', confirm: '', name: '', phone: '' })
     const update = (key: keyof typeof form) => (event: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, [key]: event.target.value })
-    return <RegistrationLayout step={1} title="Datos de tu negocio" subtitle="Cuéntanos un poco sobre ti y tu negocio." onBack={() => navigate('/registro')}><div className="form-grid"><Field label="Correo electrónico" type="email" value={form.email} onChange={update('email')} placeholder="tu@correo.com" /><Field label="Teléfono de contacto" type="tel" value={form.phone} onChange={update('phone')} placeholder="099 999 9999" /><Field label="Contraseña" type="password" value={form.password} onChange={update('password')} placeholder="Mínimo 8 caracteres" /><Field label="Confirmar contraseña" type="password" value={form.confirm} onChange={update('confirm')} placeholder="Repite tu contraseña" /><Field className="full-field" label="Nombre comercial" value={form.name} onChange={update('name')} placeholder="Ej. Pangust Sustem" /></div><button className="primary-button wide-button" onClick={() => navigate('/registro/ubicacion')}>Continuar <span>→</span></button></RegistrationLayout>
+    return <RegistrationLayout step={1} title="Datos de tu negocio" subtitle="Cuéntanos un poco sobre ti y tu negocio." onBack={() => navigate('/registro')}><div className="form-grid"><Field label="Correo electrónico" type="email" value={form.email} onChange={update('email')} placeholder="tu@correo.com" /><Field label="Teléfono de contacto" type="tel" value={form.phone} onChange={update('phone')} placeholder="099 999 9999" /><Field label="Contraseña" type="password" value={form.password} onChange={update('password')} placeholder="Mínimo 8 caracteres" /><Field label="Confirmar contraseña" type="password" value={form.confirm} onChange={update('confirm')} placeholder="Repite tu contraseña" /><Field className="full-field" label="Nombre comercial" value={form.name} onChange={update('name')} placeholder="Ej. Pangust System
+    " /></div><button className="primary-button wide-button" onClick={() => navigate('/registro/ubicacion')}>Continuar <span>→</span></button></RegistrationLayout>
   }
 
   function RegistrationLocation() {
@@ -159,13 +166,18 @@ function Dashboard() {
   const navigate = useNavigate()
   return (
     <>
-      <section className="welcome-row"><div><p className="eyebrow">MI NEGOCIO</p><h1>Hola, Pangust Sustem <span>👋</span></h1><p className="muted">Este es el resumen de la actividad de tu tienda.</p></div><button className="outline-button" onClick={() => navigate('/perfil')}>Ver mi perfil <span>→</span></button></section>
+      <section className="welcome-row"><div><p className="eyebrow">MI NEGOCIO</p><h1>Hola, Pangust System <span>👋</span></h1><p className="muted">Este es el resumen de la actividad de tu tienda.</p></div></section>
       <button className="verification-banner" onClick={() => navigate('/perfil/verificacion')}><span className="banner-icon">!</span><span><strong>Completa la verificación de tu negocio</strong><small>Aún no puedes ofertar, cobrar ni entregar.</small></span><b>→</b></button>
       <section className="metric-grid">{metrics.map((metric) => <article className="metric-card" key={metric.label}><div className={`metric-icon ${metric.tone}`}>{metric.tone === 'red' ? '↗' : metric.tone === 'purple' ? '$' : '⌁'}</div><div><p>{metric.label}</p><h2>{metric.value}</h2><small>{metric.helper}</small></div></article>)}</section>
-      <section className="content-grid"><article className="panel promo-panel"><div className="panel-heading"><div><p className="eyebrow">PROMOCIONES</p><h2>Impulsa tu negocio</h2></div><button className="icon-button">⋮</button></div><div className="promo-art"><div><span>PUBLICA</span><strong>Tus mejores<br />ofertas aquí</strong><small>Llega a más clientes de tu zona.</small><button className="light-button">Conocer más <span>→</span></button></div><div className="promo-shape">%</div></div><div className="dots"><i className="selected" /><i /><i /></div></article><article className="panel metrics-panel"><div className="panel-heading"><div><p className="eyebrow">RESUMEN</p><h2>Mis métricas</h2></div><button className="period-button">30 días⌄</button></div><div className="empty-chart"><div className="chart-icon">▥</div><strong>Todavía no hay nada que medir</strong><p>Cuando respondas solicitudes, aquí verás cómo le va a tu negocio.</p><button className="text-button">Ver métricas detalladas →</button></div></article></section>
+      <section className="content-grid"><article className="panel promo-panel"><div className="panel-heading"><div><p className="eyebrow">PROMOCIONES</p><h2>Impulsa tu negocio</h2></div><button className="icon-button">⋮</button></div><div className="promo-list"><div className="promo-art"><div><span>PUBLICA</span><strong>Tus mejores<br />ofertas aquí</strong><small>Llega a más clientes de tu zona.</small><a className="light-button" href="https://tiendabolsillo.com" target="_blank" rel="noreferrer">Conocer más <span>→</span></a></div><div className="promo-shape">%</div></div><div className="promo-art promo-second"><div><span>CRECE</span><strong>Conecta con<br />más clientes</strong><small>Haz visible tu negocio local.</small></div><div className="promo-shape">↗</div></div></div><div className="dots"><i className="selected" /><i /><i /></div></article><article className="panel metrics-panel"><div className="panel-heading"><div><p className="eyebrow">RESUMEN</p><h2>Mis métricas</h2></div><button className="period-button" onClick={() => navigate('/inicio/metricas')}>Ver detalle →</button></div><div className="empty-chart"><div className="chart-icon">▥</div><strong>Todavía no hay nada que medir</strong><p>Cuando respondas solicitudes, aquí verás cómo le va a tu negocio.</p><button className="text-button" onClick={() => navigate('/inicio/metricas')}>Ver métricas detalladas →</button></div></article></section>
       <section className="quick-actions"><h2>Acciones rápidas</h2><div><button onClick={() => navigate('/perfil/verificacion')}><span>✦</span><strong>Completar perfil</strong><small>Habilita todas las funciones</small></button><button onClick={() => navigate('/perfil/direcciones')}><span>⌖</span><strong>Agregar dirección</strong><small>Registra un nuevo local</small></button><button onClick={() => navigate('/perfil')}><span>▤</span><strong>Ver configuración</strong><small>Administra tu negocio</small></button></div></section>
     </>
   )
+}
+
+function MetricsPage() {
+  const [period, setPeriod] = useState('30 días')
+  return <AdminShell eyebrow="INICIO" title="Mis métricas" description="Consulta el rendimiento de tu negocio por periodo."><div className="metrics-filters"><button className={period === '7 días' ? 'selected' : ''} onClick={() => setPeriod('7 días')}>7 días</button><button className={period === '30 días' ? 'selected' : ''} onClick={() => setPeriod('30 días')}>30 días</button><button className={period === '90 días' ? 'selected' : ''} onClick={() => setPeriod('90 días')}>90 días</button><label className={period === 'personalizado' ? 'selected' : ''}>Elegir fechas<input type="date" onChange={() => setPeriod('personalizado')} /><span>▣</span></label></div><div className="date-range">{period === 'personalizado' ? <><label>Fecha de inicio<input type="date" /></label><label>Fecha final<input type="date" /></label><button className="primary-button">Aplicar periodo</button></> : <span>Periodo seleccionado: <strong>{period}</strong></span>}</div><div className="metrics-large-grid">{['Ofertas enviadas', 'Ventas concretadas', 'Tiempo promedio de respuesta', 'Ingresos generados'].map((item) => <article className="metric-card" key={item}><div className="metric-icon red">↗</div><div><p>{item}</p><h2>0</h2><small>Aún no hay datos en este periodo</small></div></article>)}</div><div className="module-empty compact-empty"><div className="large-empty-icon">▥</div><h2>No hay actividad para mostrar</h2><p>Cuando respondas solicitudes, aquí aparecerán tus resultados.</p></div></AdminShell>
 }
 
 function RegistrationStartPage() {
@@ -174,12 +186,15 @@ function RegistrationStartPage() {
 
 function RegistrationBusinessPage() {
   const navigate = useNavigate()
-  return <RegistrationLayoutPage step={1} title="Datos de tu negocio" subtitle="Cuéntanos un poco sobre ti y tu negocio." onBack={() => navigate('/registro')}><div className="form-grid"><FieldPage label="Correo electrónico" type="email" placeholder="tu@correo.com" /><FieldPage label="Teléfono de contacto" type="tel" placeholder="099 999 9999" /><FieldPage label="Contraseña" type="password" placeholder="Mínimo 8 caracteres" /><FieldPage label="Confirmar contraseña" type="password" placeholder="Repite tu contraseña" /><FieldPage className="full-field" label="Nombre comercial" placeholder="Ej. Pangust Sustem" /></div><button className="primary-button wide-button" onClick={() => navigate('/registro/ubicacion')}>Continuar <span>→</span></button></RegistrationLayoutPage>
+  return <RegistrationLayoutPage step={1} title="Datos de tu negocio" subtitle="Cuéntanos un poco sobre ti y tu negocio." onBack={() => navigate('/registro')}><div className="form-grid"><FieldPage label="Correo electrónico" type="email" placeholder="tu@correo.com" /><FieldPage label="Teléfono de contacto" type="tel" placeholder="099 999 9999" /><FieldPage label="Contraseña" type="password" placeholder="Mínimo 8 caracteres" /><FieldPage label="Confirmar contraseña" type="password" placeholder="Repite tu contraseña" /><FieldPage className="full-field" label="Nombre comercial" placeholder="Ej. Pangust System
+  " /></div><button className="primary-button wide-button" onClick={() => navigate('/registro/ubicacion')}>Continuar <span>→</span></button></RegistrationLayoutPage>
 }
 
 function RegistrationLocationPage() {
   const navigate = useNavigate()
-  return <RegistrationLayoutPage step={2} title="Ubica tu negocio" subtitle="Ayúdanos a mostrar tu negocio a los clientes más cercanos." onBack={() => navigate('/registro/negocio')}><div className="form-grid"><label>Actividad comercial<select defaultValue=""><option value="">Selecciona una categoría</option><option>Tienda de barrio</option><option>Construcción y Hogar</option><option>Salud y Nutrición</option><option>Tecnología y Electrónica</option></select></label><label>Provincia<select defaultValue="Azuay"><option>Azuay</option><option>Guayas</option><option>Pichincha</option></select></label><label>Cantón<select defaultValue="Cuenca"><option>Cuenca</option><option>Quito</option><option>Guayaquil</option></select></label><label>Parroquia<select defaultValue="Ricaurte"><option>Ricaurte</option><option>El Vecino</option><option>Yanuncay</option></select></label></div><button className="map-picker" type="button"><span>⌖</span><div><strong>Marcar ubicación en el mapa</strong><small>Selecciona la ubicación exacta de tu negocio</small></div><b>→</b></button><label className="check-row"><input type="checkbox" /> Acepto los <u>Términos y condiciones</u> y la <u>Política de privacidad</u>.</label><button className="primary-button wide-button" onClick={() => navigate('/registro/confirmacion')}>Crear negocio <span>→</span></button></RegistrationLayoutPage>
+  const [activities, setActivities] = useState<string[]>([])
+  const toggleActivity = (activity: string) => setActivities(activities.includes(activity) ? activities.filter((item) => item !== activity) : [...activities, activity])
+  return <RegistrationLayoutPage step={2} title="Ubica tu negocio" subtitle="Selecciona una o más actividades y registra dónde atenderás a tus clientes." onBack={() => navigate('/registro/negocio')}><div className="activity-picker"><label>Actividad comercial</label><div className="activity-options">{['Tienda de barrio', 'Construcción y Hogar', 'Salud y Nutrición', 'Tecnología y Electrónica', 'Veterinaria y Agropecuaria', 'Vehículos y accesorios'].map((activity) => <button type="button" className={activities.includes(activity) ? 'selected' : ''} key={activity} onClick={() => toggleActivity(activity)}>{activity}<span>{activities.includes(activity) ? '✓' : '+'}</span></button>)}</div><small>{activities.length ? `${activities.length} actividades seleccionadas` : 'Puedes seleccionar varias actividades.'}</small></div><div className="form-grid"><label>Provincia<select defaultValue="Azuay"><option>Azuay</option><option>Guayas</option><option>Pichincha</option></select></label><label>Cantón<select defaultValue="Cuenca"><option>Cuenca</option><option>Quito</option><option>Guayaquil</option></select></label><label>Parroquia<select defaultValue="Ricaurte"><option>Ricaurte</option><option>El Vecino</option><option>Yanuncay</option></select></label></div><button className="map-picker" type="button"><span>⌖</span><div><strong>Marcar ubicación en el mapa</strong><small>Selecciona la ubicación exacta de tu negocio</small></div><b>→</b></button><label className="check-row"><input type="checkbox" /> Acepto los <u>Términos y condiciones</u> y la <u>Política de privacidad</u>.</label><button className="primary-button wide-button" disabled={!activities.length} onClick={() => navigate('/registro/confirmacion')}>Crear negocio <span>→</span></button></RegistrationLayoutPage>
 }
 
 function RegistrationConfirmationPage() {
@@ -197,7 +212,10 @@ function FieldPage({ label, className = '', ...props }: { label: string; classNa
 function EmptyModule({ view }: { view: View }) {
   const title = view === 'ofertas' ? 'Ofertas' : view === 'cobros' ? 'Cobros' : 'Entregas'
   const description = view === 'ofertas' ? 'Aquí aparecerán las solicitudes de clientes cercanos.' : view === 'cobros' ? 'Aquí verás el resumen de tus pagos recibidos.' : 'Aquí gestionarás los pedidos listos para entregar.'
-  return <section className="module-page"><div className="module-heading"><div><p className="eyebrow">OPERACIÓN</p><h1>{title}</h1><p className="muted">{description}</p></div><button className="primary-button">+ Nueva acción</button></div><div className="tabs"><button className="tab active">Todos</button><button className="tab">Pendientes</button><button className="tab">Historial</button></div><div className="module-empty"><div className="large-empty-icon">✦</div><h2>No hay {title.toLowerCase()} todavía</h2><p>Cuando tengas actividad, la información aparecerá en este espacio.</p></div></section>
+  const tabs = view === 'ofertas' ? ['Disponibles', 'Aceptadas', 'Esperando cliente'] : view === 'cobros' ? ['Pendientes', 'Recibidos', 'Anulados'] : ['Pendientes', 'Completadas', 'Canceladas']
+  const examples = view === 'ofertas' ? [['Pintura para sala', '$180 - $240', 'Cliente cercano · Hace 12 min'], ['Reparación de tubería', '$85 - $120', 'Cliente cercano · Hace 28 min'], ['Instalación de tomacorrientes', '$60 - $90', 'Cliente cercano · Hace 1 h']] : view === 'cobros' ? [['Pintura para sala', '$180,00', 'Pendiente de pago'], ['Reparación de tubería', '$95,00', 'Pago recibido'], ['Instalación eléctrica', '$60,00', 'Cobro anulado']] : [['Entrega de materiales', 'Ricaurte → Centro', 'Preparando pedido'], ['Pedido de pintura', 'El Vecino → Ricaurte', 'Completada'], ['Accesorios eléctricos', 'Centro → Yanuncay', 'Cancelada']]
+  const [activeTab, setActiveTab] = useState(tabs[0])
+  return <section className="module-page"><div className="module-heading"><div><p className="eyebrow">OPERACIÓN</p><h1>{title}</h1><p className="muted">{description}</p></div></div><div className="tabs">{tabs.map((tab) => <button className={`tab ${activeTab === tab ? 'active' : ''}`} key={tab} onClick={() => setActiveTab(tab)}>{tab}</button>)}</div><div className="example-list">{examples.map(([name, amount, status]) => <article className="example-row" key={name}><div className="example-icon">{view === 'ofertas' ? '▤' : view === 'cobros' ? '$' : '▱'}</div><div><strong>{name}</strong><small>{amount}</small></div><span className="status-label">{activeTab} · {status}</span><button className="more-button">⋮</button></article>)}</div></section>
 }
 
 function AdminShell({ eyebrow = 'ADMINISTRACIÓN', title, description, children }: { eyebrow?: string; title: string; description: string; children: React.ReactNode }) {
@@ -207,13 +225,20 @@ function AdminShell({ eyebrow = 'ADMINISTRACIÓN', title, description, children 
 function ProfilePage() {
   const navigate = useNavigate()
   const options = [
+    ['⏻', 'Activo para recibir pedidos', 'Próximamente', 'toggle'],
     ['✎', 'Editar perfil', 'Actualiza la información de tu negocio', '/perfil/editar'],
     ['✓', 'Verificar identidad', 'Completa la verificación para operar', '/perfil/verificacion'],
+    ['T', 'Tipo de letra', 'Predeterminada', 'font'],
+    ['♧', 'Notificaciones confiables', 'Configura tus avisos', '/notificaciones'],
     ['⌖', 'Mis direcciones', 'Administra tus locales registrados', '/perfil/direcciones'],
     ['▣', 'Cuentas bancarias', 'Configura dónde recibir tus pagos', '/perfil/bancos'],
+    ['♢', 'Suscripciones', 'Consulta tus planes comerciales', '/perfil/suscripciones'],
+    ['▦', 'Mi negocio', 'Categorías y datos del establecimiento', '/perfil/negocio'],
     ['◌', 'Mensajes', 'Conversa con tus clientes', '/mensajes'],
+    ['◉', 'Gestión de cuentas', 'Suspender o eliminar cuenta', '/perfil/cuentas'],
+    ['↪', 'Cerrar sesión', 'Salir de Tienda Bolsillo', '/login'],
   ]
-  return <AdminShell eyebrow="CUENTA DEL NEGOCIO" title="Perfil del negocio" description="Administra la información y configuración de Pangust Sustem."><div className="profile-summary"><div className="profile-avatar-large">PS</div><div><h2>Pangust Sustem</h2><p>Perfil incompleto <span>•</span> Sin calificar</p></div><button className="outline-button" onClick={() => navigate('/perfil/verificacion')}>Completar perfil →</button></div><div className="admin-options">{options.map(([icon, label, text, path]) => <button key={label} onClick={() => navigate(path)}><span className="option-icon">{icon}</span><span><strong>{label}</strong><small>{text}</small></span><b>→</b></button>)}</div></AdminShell>
+  return <AdminShell eyebrow="CUENTA DEL NEGOCIO" title="Perfil del negocio" description="Administra la información y configuración de Pangust System."><div className="profile-summary"><div className="profile-avatar-large">PS</div><div><h2>Pangust System</h2><p>Perfil incompleto <span>•</span> Sin calificar</p></div></div><div className="admin-options">{options.map(([icon, label, text, path]) => <button key={label} onClick={() => path.startsWith('/') && navigate(path)}><span className="option-icon">{icon}</span><span><strong>{label}</strong><small>{text}</small></span>{path === 'toggle' ? <span className="fake-switch">○</span> : <b>→</b>}</button>)}</div></AdminShell>
 }
 
 function VerificationPage() {
@@ -238,7 +263,22 @@ function BanksPage() {
 }
 
 function EditProfilePage() {
-  return <AdminShell title="Editar perfil" description="Actualiza la información visible de tu negocio."><div className="edit-card"><FieldPage label="Nombre comercial" defaultValue="Pangust Sustem" /><FieldPage label="Teléfono de contacto" defaultValue="0958867933" /><label>Descripción del negocio<textarea defaultValue="Productos y servicios para tu hogar." /></label><button className="primary-button wide-button">Guardar cambios</button></div></AdminShell>
+  return <AdminShell title="Editar perfil" description="Actualiza la información visible de tu negocio."><div className="edit-card"><FieldPage label="Nombre comercial" defaultValue="Pangust System
+  " /><FieldPage label="Teléfono de contacto" defaultValue="0958867933" /><label>Descripción del negocio<textarea defaultValue="Productos y servicios para tu hogar." /></label><button className="primary-button wide-button">Guardar cambios</button></div></AdminShell>
+}
+
+function SubscriptionsPage() {
+  return <AdminShell title="Suscripciones" description="Consulta el plan activo de tu negocio."><div className="subscription-card"><p className="eyebrow">PLAN ACTUAL</p><h2>Plan Freemium <span className="active-badge">ACTIVO</span></h2><p>Vence el <strong>13 de enero de 2027</strong></p><small>Te quedan <strong>90 días</strong> de acceso.</small><div className="subscription-progress"><span /></div><a className="primary-button subscription-button" href="https://tiendabolsillo.com" target="_blank" rel="noreferrer">Ver planes y suscribirme →</a></div></AdminShell>
+}
+
+function BusinessPage() {
+  return <AdminShell title="Mi negocio" description="Consulta la información principal de tu establecimiento."><div className="business-info-card"><div className="profile-avatar-large">PS</div><div><h2>Pangust System</h2><p>Miembro desde: <strong>15 de octubre de 2026</strong></p><p>Construcción y Hogar · Tecnología y Electrónica</p></div></div><div className="business-details"><div><span>RAZÓN SOCIAL</span><strong>Pangust System</strong></div><div><span>ACTIVIDAD COMERCIAL</span><strong>Construcción y Hogar<br />Tecnología y Electrónica</strong></div><div><span>UBICACIÓN</span><strong>Ricaurte, Cuenca, Azuay</strong></div></div></AdminShell>
+}
+
+function AccountManagementPage() {
+  const [modal, setModal] = useState<'suspend' | 'delete' | null>(null)
+  const [status, setStatus] = useState('')
+  return <AdminShell title="Gestión de cuentas" description="Controla el estado de acceso de tu negocio."><div className="account-warning"><strong>Antes de continuar</strong><p>No podrás suspender ni eliminar tu cuenta si tienes cobros pendientes, entregas en curso u ofertas aceptadas en proceso de pago.</p></div><div className="account-actions"><article><div><h2>Suspender cuenta</h2><p>Pausa temporalmente tu negocio y deja de recibir pedidos. Puedes reactivarlo al iniciar sesión.</p></div><button className="suspend-button" onClick={() => setModal('suspend')}>Suspender cuenta</button></article><article><div><h2>Eliminar cuenta</h2><p>Esta acción es permanente y anonimiza tus datos. No podrás recuperar el acceso.</p></div><button className="delete-button" onClick={() => setModal('delete')}>Eliminar cuenta</button></article></div>{status && <div className="account-status">{status}</div>}{modal && <Modal title={modal === 'suspend' ? 'Suspender cuenta' : 'Eliminar cuenta'} onClose={() => setModal(null)}><p className="modal-warning">{modal === 'suspend' ? '¿Seguro que deseas suspender tu cuenta? Dejarás de recibir pedidos y notificaciones.' : 'Esta acción es permanente. Se anonimizarán tus datos y no podrás deshacerla.'}</p><button className={`wide-button ${modal === 'delete' ? 'delete-button' : 'suspend-button'}`} onClick={() => { setStatus(modal === 'suspend' ? 'Cuenta suspendida temporalmente.' : 'Solicitud de eliminación registrada.'); setModal(null) }}>{modal === 'suspend' ? 'Confirmar suspensión' : 'Confirmar eliminación'}</button></Modal>}</AdminShell>
 }
 
 function Modal({ title, onClose, children }: { title: string; onClose: () => void; children: React.ReactNode }) {
