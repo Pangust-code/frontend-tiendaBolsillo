@@ -3,9 +3,14 @@ import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 
 type View = 'inicio' | 'ofertas' | 'cobros' | 'entregas'
 const FONT_STORAGE_KEY = 'tienda-bolsillo-font'
+const THEME_STORAGE_KEY = 'tienda-bolsillo-theme'
 
 function applyStoredFont(font: string) {
   document.documentElement.style.setProperty('--app-font', `"${font}"`)
+}
+
+function applyTheme(theme: 'light' | 'dark') {
+  document.body.classList.toggle('dark-mode', theme === 'dark')
 }
 
 const navItems: { id: View; label: string; icon: string; path: string }[] = [
@@ -24,6 +29,7 @@ const metrics = [
 export function AppLayout() {
   const [profileOpen, setProfileOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => window.localStorage.getItem(THEME_STORAGE_KEY) === 'dark' ? 'dark' : 'light')
   const location = useLocation()
   const navigate = useNavigate()
   const activeItem = navItems.find((item) => item.path === location.pathname) ?? navItems[0]
@@ -31,10 +37,17 @@ export function AppLayout() {
   useEffect(() => {
     const storedFont = window.localStorage.getItem(FONT_STORAGE_KEY) ?? 'Nunito Sans'
     applyStoredFont(storedFont)
-  }, [])
+    applyTheme(theme)
+  }, [theme])
+
+  function toggleTheme() {
+    const nextTheme = theme === 'light' ? 'dark' : 'light'
+    setTheme(nextTheme)
+    window.localStorage.setItem(THEME_STORAGE_KEY, nextTheme)
+  }
 
   return (
-    <div className="app-shell">
+    <div className={`app-shell ${theme === 'dark' ? 'dark-theme' : ''}`}>
       <aside className={`sidebar ${menuOpen ? 'sidebar-open' : ''}`}>
         <Link className="brand" to="/inicio" onClick={() => setMenuOpen(false)}>
           <div className="brand-mark"><span>tb</span></div>
@@ -60,9 +73,11 @@ export function AppLayout() {
           <div className="breadcrumbs"><span>Mi negocio</span><b>/</b><strong>{activeItem.label}</strong></div>
           <div className="topbar-actions">
             <Link className={`notification-button ${location.pathname === '/notificaciones' ? 'active' : ''}`} aria-label="Notificaciones" to="/notificaciones"><span className="bell-icon" /><i /></Link>
-            <button className="profile-button" onClick={() => setProfileOpen(!profileOpen)}>
-              <span className="avatar">PS</span><span className="profile-name">Pangust System
-                </span><span className="chevron">⌄</span>
+            <button className="theme-button" onClick={toggleTheme} aria-label={theme === 'light' ? 'Activar fondo oscuro' : 'Activar fondo claro'} title={theme === 'light' ? 'Fondo oscuro' : 'Fondo claro'}>
+              <span>☼</span><small>{theme === 'light' ? 'Claro' : 'Oscuro'}</small>
+            </button>
+            <button className={`profile-button ${profileOpen ? 'profile-open' : ''}`} onClick={() => setProfileOpen(!profileOpen)}>
+              <span className="avatar">PS</span><span className="profile-name">Pangust System</span><span className="chevron">{profileOpen ? '-' : '⌄'}</span>
             </button>
             {profileOpen && <div className="profile-menu"><strong>Pangust System</strong><span>Perfil incompleto</span><hr /><button onClick={() => { setProfileOpen(false); navigate('/perfil') }}>Mi perfil</button><button onClick={() => { setProfileOpen(false); navigate('/login') }}>Salir</button></div>}
           </div>

@@ -153,3 +153,10 @@ El flujo tomará como referencia las capturas de creación de negocio, selecció
 - Se retiraron las flechas laterales de la publicidad; la rotación automática y los indicadores se mantienen.
 - Se añadieron estados `hover` y `focus-visible` a botones, navegación, tarjetas de acciones y controles principales para mejorar la respuesta visual.
 - La tipografía seleccionada ahora se guarda en `localStorage` y se aplica al panel al volver a entrar o recargar la página.
+
+## Etapa 12 — Menú de cuenta y temas visuales
+
+- El indicador del menú de `Pangust System` cambia entre `⌄` cuando está cerrado y `-` cuando está abierto.
+- El botón de cuenta ahora tiene realce visible al pasar el mouse y mientras el menú permanece abierto.
+- Se añadió el control de fondo claro/oscuro con icono de sol en la barra superior.
+- La preferencia de tema se guarda en `localStorage` y se conserva al recargar.
