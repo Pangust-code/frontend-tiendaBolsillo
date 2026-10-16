@@ -218,16 +218,18 @@ export function FieldPage({ label, className = '', ...props }: { label: string; 
 }
 
 export function EmptyModule({ view }: { view: View }) {
+  const navigate = useNavigate()
   const title = view === 'ofertas' ? 'Ofertas' : view === 'cobros' ? 'Cobros' : 'Entregas'
   const description = view === 'ofertas' ? 'Aquí aparecerán las solicitudes de clientes cercanos.' : view === 'cobros' ? 'Aquí verás el resumen de tus pagos recibidos.' : 'Aquí gestionarás los pedidos listos para entregar.'
   const tabs = view === 'ofertas' ? ['Disponibles', 'Aceptadas', 'Esperando cliente'] : view === 'cobros' ? ['Pendientes', 'Recibidos', 'Anulados'] : ['Pendientes', 'Completadas', 'Canceladas']
   const examples = view === 'ofertas' ? [['Pintura para sala', '$180 - $240', 'Cliente cercano · Hace 12 min'], ['Reparación de tubería', '$85 - $120', 'Cliente cercano · Hace 28 min'], ['Instalación de tomacorrientes', '$60 - $90', 'Cliente cercano · Hace 1 h']] : view === 'cobros' ? [['Pintura para sala', '$180,00', 'Pendiente de pago'], ['Reparación de tubería', '$95,00', 'Pago recibido'], ['Instalación eléctrica', '$60,00', 'Cobro anulado']] : [['Entrega de materiales', 'Ricaurte → Centro', 'Preparando pedido'], ['Pedido de pintura', 'El Vecino → Ricaurte', 'Completada'], ['Accesorios eléctricos', 'Centro → Yanuncay', 'Cancelada']]
   const [activeTab, setActiveTab] = useState(tabs[0])
-  return <section className="module-page"><div className="module-heading"><div><p className="eyebrow">OPERACIÓN</p><h1>{title}</h1><p className="muted">{description}</p></div></div><div className="tabs">{tabs.map((tab) => <button className={`tab ${activeTab === tab ? 'active' : ''}`} key={tab} onClick={() => setActiveTab(tab)}>{tab}</button>)}</div><div className="example-list">{examples.map(([name, amount, status]) => <article className="example-row" key={name}><div className="example-icon">{view === 'ofertas' ? '▤' : view === 'cobros' ? '$' : '▱'}</div><div><strong>{name}</strong><small>{amount}</small></div><span className="status-label">{activeTab} · {status}</span><button className="more-button">⋮</button></article>)}</div></section>
+  return <section className="module-page"><div className="module-heading"><div><button className="back-button" onClick={() => navigate(-1)} aria-label="Regresar"><span>←</span> Regresar</button><p className="eyebrow">OPERACIÓN</p><h1>{title}</h1><p className="muted">{description}</p></div></div><div className="tabs">{tabs.map((tab) => <button className={`tab ${activeTab === tab ? 'active' : ''}`} key={tab} onClick={() => setActiveTab(tab)}>{tab}</button>)}</div><div className="example-list">{examples.map(([name, amount, status]) => <article className="example-row" key={name}><div className="example-icon">{view === 'ofertas' ? '▤' : view === 'cobros' ? '$' : '▱'}</div><div><strong>{name}</strong><small>{amount}</small></div><span className="status-label">{activeTab} · {status}</span><button className="more-button">⋮</button></article>)}</div></section>
 }
 
 export function AdminShell({ eyebrow = 'ADMINISTRACIÓN', title, description, children }: { eyebrow?: string; title: string; description: string; children: React.ReactNode }) {
-  return <section className="admin-page"><div className="admin-heading"><div><p className="eyebrow">{eyebrow}</p><h1>{title}</h1><p className="muted">{description}</p></div></div>{children}</section>
+  const navigate = useNavigate()
+  return <section className="admin-page"><div className="admin-heading"><div><button className="back-button" onClick={() => navigate(-1)} aria-label="Regresar"><span>←</span> Regresar</button><p className="eyebrow">{eyebrow}</p><h1>{title}</h1><p className="muted">{description}</p></div></div>{children}</section>
 }
 
 export function ProfilePage() {

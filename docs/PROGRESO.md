@@ -199,3 +199,9 @@ El flujo tomará como referencia las capturas de creación de negocio, selecció
 - Se reemplazó el hover rojo sólido de los periodos de métricas por un fondo neutro de alto contraste.
 - La opción seleccionada conserva su identidad, pero al pasar el mouse usa un estado más ligero con borde sutil.
 - El mismo ajuste se aplicó al contenedor y a los filtros en modo oscuro.
+
+## Etapa 19 — Navegación de regreso
+
+- Se añadieron flechas simples de regreso en las pantallas internas de administración y operación.
+- Los botones utilizan el historial del navegador y mantienen un estilo discreto.
+- El hover solo desplaza ligeramente la flecha y cambia el color para confirmar la interacción.
