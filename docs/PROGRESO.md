@@ -130,4 +130,19 @@ Archivos:
 - `Elegir fechas` abre un panel con fecha inicial y final, validando el rango.
 - Las promociones tienen contador, navegación anterior/siguiente y acciones funcionales; los indicadores ahora representan anuncios reales.
 
+## Etapa 10 — Organización del código
+
+Se separó el punto de entrada de las pantallas:
+
+```text
+src/
+├── App.tsx              # Definición central de rutas
+├── main.tsx             # Arranque de React
+├── pages/
+│   └── Pages.tsx        # Pantallas y layout de la aplicación
+└── styles.css           # Sistema visual global
+```
+
+`App.tsx` ahora solo registra rutas y redirecciones. Esta separación permite extraer después cada grupo de pantallas a archivos independientes sin modificar la navegación.
+
 El flujo tomará como referencia las capturas de creación de negocio, selección de categorías, ubicación en mapa y confirmación exitosa.
