@@ -166,3 +166,11 @@ El flujo tomará como referencia las capturas de creación de negocio, selecció
 - Se corrigieron los colores de títulos, descripciones y opciones de configuración para mantener una lectura clara en fondo oscuro.
 - Se mejoró el estado visual de las tarjetas de configuración cuando se pasa el mouse.
 - El indicador de la cuenta ahora muestra `-` con el menú cerrado y `⌄` con el menú abierto, según el comportamiento solicitado.
+
+## Etapa 14 — Menú de cuenta refinado
+
+- Se eliminó el círculo rojo que rodeaba el indicador `⌄`.
+- El menú de cuenta ahora tiene una cabecera con avatar, estado del perfil y acciones claramente separadas.
+- `Mi perfil` y `Salir` tienen iconos, flechas de apoyo y realce al pasar el mouse.
+- Se añadió una entrada suave del menú sin abusar de sombras, colores o bordes redondeados.
+- La revisión visual mantiene una interfaz minimalista, pero con suficiente contraste, jerarquía y respuesta al usuario.
