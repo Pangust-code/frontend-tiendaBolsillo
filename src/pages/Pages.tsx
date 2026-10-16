@@ -77,7 +77,7 @@ export function AppLayout() {
               <span>☼</span><small>{theme === 'light' ? 'Claro' : 'Oscuro'}</small>
             </button>
             <button className={`profile-button ${profileOpen ? 'profile-open' : ''}`} onClick={() => setProfileOpen(!profileOpen)}>
-              <span className="avatar">PS</span><span className="profile-name">Pangust System</span><span className="chevron">{profileOpen ? '-' : '⌄'}</span>
+              <span className="avatar">PS</span><span className="profile-name">Pangust System</span><span className="chevron">{profileOpen ? '⌄' : '-'}</span>
             </button>
             {profileOpen && <div className="profile-menu"><strong>Pangust System</strong><span>Perfil incompleto</span><hr /><button onClick={() => { setProfileOpen(false); navigate('/perfil') }}>Mi perfil</button><button onClick={() => { setProfileOpen(false); navigate('/login') }}>Salir</button></div>}
           </div>

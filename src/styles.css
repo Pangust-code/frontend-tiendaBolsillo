@@ -67,6 +67,8 @@ body { font-family: var(--app-font), sans-serif; }
 .profile-button { padding: 5px 8px 5px 5px; border: 1px solid transparent; border-radius: 7px; transition: transform .18s ease, background-color .18s ease, border-color .18s ease, box-shadow .18s ease; }
 .profile-button:hover, .profile-button.profile-open { transform: translateY(-1px); background: #fff4f4; border-color: #f0b5b7; box-shadow: 0 6px 16px #18223518; }
 .profile-button:hover .avatar, .profile-button.profile-open .avatar { background: #ffdfe1; }
+.profile-button .chevron { display: grid; place-items: center; width: 18px; height: 18px; color: var(--red); font-size: 17px; font-weight: 800; line-height: 1; }
+.profile-button.profile-open .chevron { width: 22px; height: 22px; color: #fff; background: var(--red); border-radius: 50%; font-size: 15px; }
 .theme-button { display: inline-flex; align-items: center; gap: 6px; padding: 7px 9px; color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 6px; transition: transform .18s ease, background-color .18s ease, border-color .18s ease, color .18s ease; }
 .theme-button span { color: #e0a51b; font-size: 20px; line-height: 1; }
 .theme-button small { font-size: 11px; font-weight: 800; }
@@ -75,8 +77,11 @@ body.dark-mode { background: #111827; }
 body.dark-mode .topbar, body.dark-mode .sidebar, body.dark-mode .panel, body.dark-mode .metric-card, body.dark-mode .module-empty, body.dark-mode .profile-summary, body.dark-mode .admin-options button, body.dark-mode .address-card, body.dark-mode .verification-card, body.dark-mode .edit-card, body.dark-mode .example-row, body.dark-mode .subscription-card, body.dark-mode .business-info-card, body.dark-mode .business-details, body.dark-mode .account-warning, body.dark-mode .account-actions article, body.dark-mode .font-options button, body.dark-mode .calendar-panel, body.dark-mode .profile-menu { background: #1f2937; border-color: #374151; }
 body.dark-mode .app-shell, body.dark-mode .page, body.dark-mode .main-content { color: #f3f4f6; }
 body.dark-mode .sidebar, body.dark-mode .topbar { border-color: #374151; }
-body.dark-mode .muted, body.dark-mode .status-label, body.dark-mode .profile-menu button, body.dark-mode .font-options small { color: #aab4c4; }
-body.dark-mode .profile-button, body.dark-mode .profile-menu strong, body.dark-mode .breadcrumbs strong, body.dark-mode .panel h2, body.dark-mode .quick-actions h2, body.dark-mode .admin-heading h1, body.dark-mode .module-heading h1, body.dark-mode .theme-button:hover { color: #f3f4f6; }
+body.dark-mode .muted, body.dark-mode .status-label, body.dark-mode .profile-menu button, body.dark-mode .font-options small, body.dark-mode .admin-options small, body.dark-mode .admin-toolbar, body.dark-mode .address-card p, body.dark-mode .verification-step small, body.dark-mode .business-info-card p, body.dark-mode .business-details span { color: #c3ccda; }
+body.dark-mode .profile-button, body.dark-mode .profile-menu strong, body.dark-mode .breadcrumbs strong, body.dark-mode .panel h2, body.dark-mode .quick-actions h2, body.dark-mode .admin-heading h1, body.dark-mode .module-heading h1, body.dark-mode .admin-options button, body.dark-mode .font-options button, body.dark-mode .address-card h3, body.dark-mode .verification-step strong, body.dark-mode .business-info-card h2, body.dark-mode .business-details strong, body.dark-mode .theme-button:hover { color: #f3f4f6; }
+body.dark-mode .admin-options button:hover, body.dark-mode .font-options button:hover, body.dark-mode .quick-actions button:hover { background: #2b3545; border-color: #8f4147; }
+body.dark-mode .profile-button .chevron { color: #ff8f94; }
+body.dark-mode .quick-actions button, body.dark-mode .quick-actions strong, body.dark-mode .admin-options strong, body.dark-mode .font-options span { color: #f3f4f6; }
 body.dark-mode .nav-item:hover, body.dark-mode .nav-item.active { background: #352328; }
 body.dark-mode .profile-button:hover, body.dark-mode .profile-button.profile-open { background: #352328; border-color: #8f4147; }
 body.dark-mode .theme-button:hover { background: #40371f; border-color: #967b29; }

@@ -160,3 +160,9 @@ El flujo tomará como referencia las capturas de creación de negocio, selecció
 - El botón de cuenta ahora tiene realce visible al pasar el mouse y mientras el menú permanece abierto.
 - Se añadió el control de fondo claro/oscuro con icono de sol en la barra superior.
 - La preferencia de tema se guarda en `localStorage` y se conserva al recargar.
+
+## Etapa 13 — Contraste del modo oscuro
+
+- Se corrigieron los colores de títulos, descripciones y opciones de configuración para mantener una lectura clara en fondo oscuro.
+- Se mejoró el estado visual de las tarjetas de configuración cuando se pasa el mouse.
+- El indicador de la cuenta ahora muestra `-` con el menú cerrado y `⌄` con el menú abierto, según el comportamiento solicitado.
