@@ -147,3 +147,9 @@ src/
 `App.tsx` ahora solo registra rutas y redirecciones. Esta separación permite extraer después cada grupo de pantallas a archivos independientes sin modificar la navegación.
 
 El flujo tomará como referencia las capturas de creación de negocio, selección de categorías, ubicación en mapa y confirmación exitosa.
+
+## Etapa 11 — Interacción visual y tipografía persistente
+
+- Se retiraron las flechas laterales de la publicidad; la rotación automática y los indicadores se mantienen.
+- Se añadieron estados `hover` y `focus-visible` a botones, navegación, tarjetas de acciones y controles principales para mejorar la respuesta visual.
+- La tipografía seleccionada ahora se guarda en `localStorage` y se aplica al panel al volver a entrar o recargar la página.

@@ -37,3 +37,30 @@ button { font: inherit; cursor: pointer; border: 0; }
 .calendar-panel { display: flex; align-items: end; justify-content: space-between; gap: 18px; padding: 18px; margin-bottom: 12px; background: #fff; border: 1px solid var(--line); border-radius: 6px; }.calendar-panel > div { display: flex; gap: 14px; }.calendar-panel label { display: grid; gap: 6px; color: #374357; font-size: 12px; font-weight: 800; }.calendar-panel input { padding: 9px; border: 1px solid #dfe4eb; border-radius: 4px; }.calendar-panel .primary-button { margin: 0; }.font-options { display: grid; gap: 10px; max-width: 680px; }.font-options button { position: relative; display: grid; gap: 5px; padding: 18px; text-align: left; color: var(--ink); background: #fff; border: 1px solid var(--line); border-radius: 6px; }.font-options button.selected { border-color: var(--red); background: #fff6f6; }.font-options span { font-size: 19px; font-weight: 800; }.font-options small { color: var(--muted); }.font-options b { position: absolute; right: 18px; top: 22px; color: var(--red); }.promo-controls { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 10px; }.promo-controls button { width: 27px; height: 27px; border: 1px solid var(--line); background: #fff; border-radius: 4px; color: var(--muted); }.promo-counter { color: var(--muted); font-size: 12px; font-weight: 800; }
 @media (max-width: 800px) { .metrics-large-grid { grid-template-columns: 1fr 1fr; }.metrics-filters { overflow-x: auto; }.date-range { flex-wrap: wrap; } }
 @media (max-width: 680px) { .calendar-panel, .calendar-panel > div { align-items: stretch; flex-direction: column; }.activity-options { grid-template-columns: 1fr; }.business-details { grid-template-columns: 1fr; }.account-actions article { align-items: start; flex-direction: column; }.promo-list .promo-art { height: 175px; } }
+/* Interactive feedback and persisted typography */
+:root { --app-font: "Nunito Sans"; }
+body { font-family: var(--app-font), sans-serif; }
+.app-shell h1, .app-shell h2, .app-shell h3, .app-shell strong, .app-shell button, .app-shell input, .app-shell select, .app-shell textarea, .auth-page h1, .auth-page h2, .auth-page strong {
+  font-family: var(--app-font), sans-serif;
+}
+.font-options span, .font-options small { font-family: initial; }
+.primary-button, .outline-button, .period-button, .icon-button, .light-button, .text-button, .tab, .nav-item, .profile-button, .notification-button, .role-card, .map-picker, .admin-options button, .font-options button, .quick-actions button, .more-button, .metrics-filters button {
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background-color .18s ease, color .18s ease;
+}
+.primary-button:hover, .outline-button:hover, .period-button:hover, .icon-button:hover, .light-button:hover, .role-card:hover, .map-picker:hover, .admin-options button:hover, .font-options button:hover, .quick-actions button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px #18223518;
+}
+.primary-button:hover { background: #c91d25; border-color: #c91d25; }
+.outline-button:hover, .period-button:hover, .icon-button:hover { border-color: var(--red); color: var(--red); }
+.nav-item:hover, .profile-button:hover, .notification-button:hover, .text-button:hover, .tab:hover, .more-button:hover, .metrics-filters button:hover {
+  color: var(--red);
+}
+.quick-actions button:hover, .admin-options button:hover, .font-options button:hover { border-color: #f0b5b7; background: #fffafa; }
+.light-button:hover { background: var(--red); color: #fff; }
+.button:focus-visible, button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid #f5a6a9;
+  outline-offset: 2px;
+}
+.promo-art { transition: background .35s ease, transform .35s ease; }
+.promo-panel:hover .promo-art { transform: translateY(-2px); }

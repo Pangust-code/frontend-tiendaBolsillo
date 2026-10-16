@@ -2,6 +2,11 @@ import { useEffect, useState } from 'react'
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 
 type View = 'inicio' | 'ofertas' | 'cobros' | 'entregas'
+const FONT_STORAGE_KEY = 'tienda-bolsillo-font'
+
+function applyStoredFont(font: string) {
+  document.documentElement.style.setProperty('--app-font', `"${font}"`)
+}
 
 const navItems: { id: View; label: string; icon: string; path: string }[] = [
   { id: 'inicio', label: 'Inicio', icon: '⌂', path: '/inicio' },
@@ -22,6 +27,11 @@ export function AppLayout() {
   const location = useLocation()
   const navigate = useNavigate()
   const activeItem = navItems.find((item) => item.path === location.pathname) ?? navItems[0]
+
+  useEffect(() => {
+    const storedFont = window.localStorage.getItem(FONT_STORAGE_KEY) ?? 'Nunito Sans'
+    applyStoredFont(storedFont)
+  }, [])
 
   return (
     <div className="app-shell">
@@ -149,7 +159,7 @@ export function Dashboard() {
       <section className="welcome-row"><div><p className="eyebrow">MI NEGOCIO</p><h1>Hola, Pangust System <span>👋</span></h1><p className="muted">Este es el resumen de la actividad de tu tienda.</p></div></section>
       <button className="verification-banner" onClick={() => navigate('/perfil/verificacion')}><span className="banner-icon">!</span><span><strong>Completa la verificación de tu negocio</strong><small>Aún no puedes ofertar, cobrar ni entregar.</small></span><b>→</b></button>
       <section className="metric-grid">{metrics.map((metric) => <article className="metric-card" key={metric.label}><div className={`metric-icon ${metric.tone}`}>{metric.tone === 'red' ? '↗' : metric.tone === 'purple' ? '$' : '⌁'}</div><div><p>{metric.label}</p><h2>{metric.value}</h2><small>{metric.helper}</small></div></article>)}</section>
-      <section className="content-grid"><article className="panel promo-panel" onMouseEnter={() => setPromoPaused(true)} onMouseLeave={() => setPromoPaused(false)}><div className="panel-heading"><div><p className="eyebrow">PROMOCIONES</p><h2>Impulsa tu negocio</h2></div><span className="promo-counter">{promoIndex + 1} / 2</span></div><div className="promo-list"><div className={`promo-art ${promoIndex === 1 ? 'promo-second' : ''}`}><div>{promoIndex === 0 ? <><span>PUBLICA</span><strong>Tus mejores<br />ofertas aquí</strong><small>Llega a más clientes de tu zona.</small><a className="light-button" href="https://tiendabolsillo.com" target="_blank" rel="noreferrer">Conocer más <span>→</span></a></> : <><span>CRECE</span><strong>Conecta con<br />más clientes</strong><small>Haz visible tu negocio local.</small><button className="light-button" onClick={() => navigate('/perfil/suscripciones')}>Ver opciones <span>→</span></button></>}</div><div className="promo-shape">{promoIndex === 0 ? '%' : '↗'}</div></div></div><div className="promo-controls"><button onClick={() => setPromoIndex(promoIndex === 0 ? 1 : 0)} aria-label="Publicidad anterior">←</button><div className="dots"><i className={promoIndex === 0 ? 'selected' : ''} /><i className={promoIndex === 1 ? 'selected' : ''} /></div><button onClick={() => setPromoIndex(promoIndex === 1 ? 0 : 1)} aria-label="Siguiente publicidad">→</button></div></article><article className="panel metrics-panel"><div className="panel-heading"><div><p className="eyebrow">RESUMEN</p><h2>Mis métricas</h2></div><button className="period-button" onClick={() => navigate('/inicio/metricas')}>Ver detalle →</button></div><div className="empty-chart"><div className="chart-icon">▥</div><strong>Todavía no hay nada que medir</strong><p>Cuando respondas solicitudes, aquí verás cómo le va a tu negocio.</p><button className="text-button" onClick={() => navigate('/inicio/metricas')}>Ver métricas detalladas →</button></div></article></section>
+      <section className="content-grid"><article className="panel promo-panel" onMouseEnter={() => setPromoPaused(true)} onMouseLeave={() => setPromoPaused(false)}><div className="panel-heading"><div><p className="eyebrow">PROMOCIONES</p><h2>Impulsa tu negocio</h2></div><span className="promo-counter">{promoIndex + 1} / 2</span></div><div className="promo-list"><div className={`promo-art ${promoIndex === 1 ? 'promo-second' : ''}`}><div>{promoIndex === 0 ? <><span>PUBLICA</span><strong>Tus mejores<br />ofertas aquí</strong><small>Llega a más clientes de tu zona.</small><a className="light-button" href="https://tiendabolsillo.com" target="_blank" rel="noreferrer">Conocer más <span>→</span></a></> : <><span>CRECE</span><strong>Conecta con<br />más clientes</strong><small>Haz visible tu negocio local.</small><button className="light-button" onClick={() => navigate('/perfil/suscripciones')}>Ver opciones <span>→</span></button></>}</div><div className="promo-shape">{promoIndex === 0 ? '%' : '↗'}</div></div></div><div className="dots"><i className={promoIndex === 0 ? 'selected' : ''} /><i className={promoIndex === 1 ? 'selected' : ''} /></div></article><article className="panel metrics-panel"><div className="panel-heading"><div><p className="eyebrow">RESUMEN</p><h2>Mis métricas</h2></div><button className="period-button" onClick={() => navigate('/inicio/metricas')}>Ver detalle →</button></div><div className="empty-chart"><div className="chart-icon">▥</div><strong>Todavía no hay nada que medir</strong><p>Cuando respondas solicitudes, aquí verás cómo le va a tu negocio.</p><button className="text-button" onClick={() => navigate('/inicio/metricas')}>Ver métricas detalladas →</button></div></article></section>
       <section className="quick-actions"><h2>Acciones rápidas</h2><div><button onClick={() => navigate('/perfil/verificacion')}><span>✦</span><strong>Completar perfil</strong><small>Habilita todas las funciones</small></button><button onClick={() => navigate('/perfil/direcciones')}><span>⌖</span><strong>Agregar dirección</strong><small>Registra un nuevo local</small></button><button onClick={() => navigate('/perfil')}><span>▤</span><strong>Ver configuración</strong><small>Administra tu negocio</small></button></div></section>
     </>
   )
@@ -251,8 +261,13 @@ export function EditProfilePage() {
 }
 
 export function TypographyPage() {
-  const [font, setFont] = useState('Nunito Sans')
-  return <AdminShell title="Tipo de letra" description="Personaliza la tipografía de la interfaz."><div className="font-options">{['Nunito Sans', 'Montserrat', 'Arial'].map((option) => <button className={font === option ? 'selected' : ''} key={option} onClick={() => setFont(option)}><span style={{ fontFamily: option }}>{option}</span><small style={{ fontFamily: option }}>Así se verá el texto de tu negocio</small>{font === option && <b>✓</b>}</button>)}</div><div className="account-status">Tipografía actual: <strong>{font}</strong></div></AdminShell>
+  const [font, setFont] = useState(() => window.localStorage.getItem(FONT_STORAGE_KEY) ?? 'Nunito Sans')
+  const selectFont = (option: string) => {
+    setFont(option)
+    window.localStorage.setItem(FONT_STORAGE_KEY, option)
+    applyStoredFont(option)
+  }
+  return <AdminShell title="Tipo de letra" description="Personaliza la tipografía de la interfaz."><div className="font-options">{['Nunito Sans', 'Montserrat', 'Arial'].map((option) => <button className={font === option ? 'selected' : ''} key={option} onClick={() => selectFont(option)}><span style={{ fontFamily: option }}>{option}</span><small style={{ fontFamily: option }}>Así se verá el texto de tu negocio</small>{font === option && <b>✓</b>}</button>)}</div><div className="account-status">Tipografía actual: <strong>{font}</strong></div></AdminShell>
 }
 
 export function SubscriptionsPage() {
@@ -276,4 +291,3 @@ export function Modal({ title, onClose, children }: { title: string; onClose: ()
 export function SimpleAdminPage({ title, description, icon }: { title: string; description: string; icon: string }) {
   return <AdminShell title={title} description={description}><div className="module-empty admin-empty"><div className="large-empty-icon">{icon}</div><h2>{title === 'Mensajes' ? 'Sin conversaciones' : 'Sin notificaciones'}</h2><p>{description}</p></div></AdminShell>
 }
-
