@@ -213,6 +213,15 @@ El flujo tomará como referencia las capturas de creación de negocio, selecció
 - Cada estado muestra registros diferentes y coherentes con su categoría.
 - Se evitaron listados repetidos al cambiar entre pestañas.
 
+## Etapa 23 — Verificación para persona jurídica
+
+- Al seleccionar `Persona jurídica / sociedad`, el documento cambia de `RUC activo` a `RUC`.
+- Se añadió el bloque de datos del representante legal: nombres, apellidos, fecha de nacimiento, género y cédula.
+- Se añadió el respaldo obligatorio de la cédula del representante legal.
+- Se añadió el nombramiento del representante legal como documento opcional.
+- El segundo nombre, apellido materno, email y nombramiento permanecen opcionales y no bloquean el envío.
+- Para persona natural se conserva el flujo y los requisitos documentales anteriores.
+
 ## Etapa 18 — Hover de filtros de métricas
 
 - Se reemplazó el hover rojo sólido de los periodos de métricas por un fondo neutro de alto contraste.
