@@ -4,7 +4,7 @@ El frontend de Tienda Bolsillo es una SPA responsive para administrar un comerci
 
 ## Arquitectura de la aplicación
 
-<!-- mermaid-checked: no \n, no em-dash/en-dash, no {} in labels, subgraphs are id["label"], arrows are -->|"label"|, all subgraphs closed by end, ids unique -->
+<!-- mermaid-checked: no \n, no em-dash/en-dash, no {} in labels, subgraphs are id["label"], arrows are -->|"label"|, all subgraphs 
 ~~~mermaid
 flowchart TD
     subgraph Client["Capa del cliente"]
@@ -56,7 +56,7 @@ La versión actual no se conecta a una base de datos, API, proveedor de autentic
 
 ## Relaciones entre componentes
 
-<!-- mermaid-checked: no \n, no em-dash/en-dash, no {} in labels, subgraphs are id["label"], arrows are -->|"label"|, all subgraphs closed by end, ids unique -->
+<!-- mermaid-checked: no \n, no em-dash/en-dash, no {} in labels, subgraphs are id["label"], arrows are -->
 ~~~mermaid
 flowchart LR
     subgraph PresentationLayer["Presentación"]
