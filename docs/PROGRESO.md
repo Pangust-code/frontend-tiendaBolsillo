@@ -129,6 +129,7 @@ Archivos:
 - `Tipo de letra` permite escoger entre Nunito Sans, Montserrat y Arial.
 - `Elegir fechas` abre un panel con fecha inicial y final, validando el rango.
 - Las promociones tienen contador, navegación anterior/siguiente y acciones funcionales; los indicadores ahora representan anuncios reales.
+- Las promociones rotan automáticamente cada 5 segundos y se pausan mientras el usuario pasa el cursor sobre el panel.
 
 ## Etapa 10 — Organización del código
 
