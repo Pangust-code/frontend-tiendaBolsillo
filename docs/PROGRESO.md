@@ -193,3 +193,9 @@ El flujo tomará como referencia las capturas de creación de negocio, selecció
 - Los títulos y descripciones mantienen contraste alto.
 - Los iconos usan un fondo de acento separado para conservar jerarquía visual.
 - El hover tiene realce propio sin aumentar excesivamente la saturación.
+
+## Etapa 18 — Hover de filtros de métricas
+
+- Se reemplazó el hover rojo sólido de los periodos de métricas por un fondo neutro de alto contraste.
+- La opción seleccionada conserva su identidad, pero al pasar el mouse usa un estado más ligero con borde sutil.
+- El mismo ajuste se aplicó al contenedor y a los filtros en modo oscuro.
