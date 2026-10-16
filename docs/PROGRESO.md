@@ -207,6 +207,12 @@ El flujo tomará como referencia las capturas de creación de negocio, selecció
 - Se configuró la contraseña demo fija `Pangust2026!` y un botón para completar los datos automáticamente.
 - Los errores de acceso se muestran explícitamente en el formulario.
 
+## Etapa 22 — Filtrado de estados operativos
+
+- Las pestañas de Ofertas, Cobros y Entregas ahora filtran sus propios ejemplos.
+- Cada estado muestra registros diferentes y coherentes con su categoría.
+- Se evitaron listados repetidos al cambiar entre pestañas.
+
 ## Etapa 18 — Hover de filtros de métricas
 
 - Se reemplazó el hover rojo sólido de los periodos de métricas por un fondo neutro de alto contraste.

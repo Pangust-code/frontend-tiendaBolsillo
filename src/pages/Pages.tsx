@@ -234,9 +234,32 @@ export function EmptyModule({ view }: { view: View }) {
   const title = view === 'ofertas' ? 'Ofertas' : view === 'cobros' ? 'Cobros' : 'Entregas'
   const description = view === 'ofertas' ? 'Aquí aparecerán las solicitudes de clientes cercanos.' : view === 'cobros' ? 'Aquí verás el resumen de tus pagos recibidos.' : 'Aquí gestionarás los pedidos listos para entregar.'
   const tabs = view === 'ofertas' ? ['Disponibles', 'Aceptadas', 'Esperando cliente'] : view === 'cobros' ? ['Pendientes', 'Recibidos', 'Anulados'] : ['Pendientes', 'Completadas', 'Canceladas']
-  const examples = view === 'ofertas' ? [['Pintura para sala', '$180 - $240', 'Cliente cercano · Hace 12 min'], ['Reparación de tubería', '$85 - $120', 'Cliente cercano · Hace 28 min'], ['Instalación de tomacorrientes', '$60 - $90', 'Cliente cercano · Hace 1 h']] : view === 'cobros' ? [['Pintura para sala', '$180,00', 'Pendiente de pago'], ['Reparación de tubería', '$95,00', 'Pago recibido'], ['Instalación eléctrica', '$60,00', 'Cobro anulado']] : [['Entrega de materiales', 'Ricaurte → Centro', 'Preparando pedido'], ['Pedido de pintura', 'El Vecino → Ricaurte', 'Completada'], ['Accesorios eléctricos', 'Centro → Yanuncay', 'Cancelada']]
+  const examples = view === 'ofertas'
+    ? [
+        ['Pintura para sala', '$180 - $240', 'Cliente cercano · Hace 12 min', 'Disponibles'],
+        ['Reparación de tubería', '$85 - $120', 'Cliente cercano · Hace 28 min', 'Disponibles'],
+        ['Instalación de tomacorrientes', '$60 - $90', 'Oferta aceptada · Hace 1 h', 'Aceptadas'],
+        ['Pintura exterior', '$220 - $300', 'Esperando confirmación del cliente', 'Esperando cliente'],
+        ['Armado de muebles', '$70 - $110', 'Cliente revisando la propuesta', 'Esperando cliente'],
+      ]
+    : view === 'cobros'
+      ? [
+          ['Pintura para sala', '$180,00', 'Pendiente de pago', 'Pendientes'],
+          ['Instalación eléctrica', '$60,00', 'Pago solicitado al cliente', 'Pendientes'],
+          ['Reparación de tubería', '$95,00', 'Pago recibido ayer', 'Recibidos'],
+          ['Mantenimiento de grifería', '$45,00', 'Pago recibido el lunes', 'Recibidos'],
+          ['Instalación de repisas', '$75,00', 'Cobro anulado por el cliente', 'Anulados'],
+        ]
+      : [
+          ['Entrega de materiales', 'Ricaurte → Centro', 'Preparando pedido', 'Pendientes'],
+          ['Pedido de pintura', 'El Vecino → Ricaurte', 'Cliente aún no recibe', 'Pendientes'],
+          ['Entrega de herramientas', 'Centro → Yanuncay', 'Completada hoy', 'Completadas'],
+          ['Accesorios eléctricos', 'Ricaurte → El Vecino', 'Completada ayer', 'Completadas'],
+          ['Entrega de cerámica', 'Centro → Ricaurte', 'Cancelada por el cliente', 'Canceladas'],
+        ]
   const [activeTab, setActiveTab] = useState(tabs[0])
-  return <section className="module-page"><div className="module-heading"><div><button className="back-button" onClick={() => navigate(-1)} aria-label="Regresar"><span>←</span> Regresar</button><p className="eyebrow">OPERACIÓN</p><h1>{title}</h1><p className="muted">{description}</p></div></div><div className="tabs">{tabs.map((tab) => <button className={`tab ${activeTab === tab ? 'active' : ''}`} key={tab} onClick={() => setActiveTab(tab)}>{tab}</button>)}</div><div className="example-list">{examples.map(([name, amount, status]) => <article className="example-row" key={name}><div className="example-icon">{view === 'ofertas' ? '▤' : view === 'cobros' ? '$' : '▱'}</div><div><strong>{name}</strong><small>{amount}</small></div><span className="status-label">{activeTab} · {status}</span><button className="more-button">⋮</button></article>)}</div></section>
+  const visibleExamples = examples.filter((example) => example[3] === activeTab)
+  return <section className="module-page"><div className="module-heading"><div><button className="back-button" onClick={() => navigate(-1)} aria-label="Regresar"><span>←</span> Regresar</button><p className="eyebrow">OPERACIÓN</p><h1>{title}</h1><p className="muted">{description}</p></div></div><div className="tabs">{tabs.map((tab) => <button className={`tab ${activeTab === tab ? 'active' : ''}`} key={tab} onClick={() => setActiveTab(tab)}>{tab}</button>)}</div><div className="example-list">{visibleExamples.map(([name, amount, status]) => <article className="example-row" key={name}><div className="example-icon">{view === 'ofertas' ? '▤' : view === 'cobros' ? '$' : '▱'}</div><div><strong>{name}</strong><small>{amount}</small></div><span className="status-label">{activeTab} · {status}</span><button className="more-button">⋮</button></article>)}</div></section>
 }
 
 export function AdminShell({ eyebrow = 'ADMINISTRACIÓN', title, description, children }: { eyebrow?: string; title: string; description: string; children: React.ReactNode }) {
