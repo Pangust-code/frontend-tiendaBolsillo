@@ -25,7 +25,7 @@ El proyecto es un prototipo frontend responsive para el perfil de negocio de Tie
 
 Al abrir la aplicación se muestra `/login`. El prototipo incluye un acceso demo:
 
-- Usuario: `pangustsystem@gmail.com` o `Pangust System`
+- Usuario: `pangustsystem@gmail.com`
 - Contraseña: `Pangust2026!`
 
 La validación es local y simulada. No representa todavía autenticación real ni debe reutilizarse como credencial de producción.
