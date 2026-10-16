@@ -32,6 +32,7 @@ function App() {
         <Route path="/entregas" element={<EmptyModule view="entregas" />} />
         <Route path="/perfil" element={<ProfilePage />} />
         <Route path="/perfil/editar" element={<EditProfilePage />} />
+        <Route path="/perfil/tipografia" element={<TypographyPage />} />
         <Route path="/perfil/verificacion" element={<VerificationPage />} />
         <Route path="/perfil/direcciones" element={<AddressesPage />} />
         <Route path="/perfil/bancos" element={<BanksPage />} />
@@ -79,7 +80,7 @@ function AppLayout() {
           <button className="menu-button" aria-label="Abrir menú" onClick={() => setMenuOpen(!menuOpen)}>☰</button>
           <div className="breadcrumbs"><span>Mi negocio</span><b>/</b><strong>{activeItem.label}</strong></div>
           <div className="topbar-actions">
-            <Link className={`notification-button ${location.pathname === '/notificaciones' ? 'active' : ''}`} aria-label="Notificaciones" to="/notificaciones">🔔<i /></Link>
+            <Link className={`notification-button ${location.pathname === '/notificaciones' ? 'active' : ''}`} aria-label="Notificaciones" to="/notificaciones"><span className="bell-icon" /><i /></Link>
             <button className="profile-button" onClick={() => setProfileOpen(!profileOpen)}>
               <span className="avatar">PS</span><span className="profile-name">Pangust System
                 </span><span className="chevron">⌄</span>
@@ -164,12 +165,13 @@ function LoginPage() {
 
 function Dashboard() {
   const navigate = useNavigate()
+  const [promoIndex, setPromoIndex] = useState(0)
   return (
     <>
       <section className="welcome-row"><div><p className="eyebrow">MI NEGOCIO</p><h1>Hola, Pangust System <span>👋</span></h1><p className="muted">Este es el resumen de la actividad de tu tienda.</p></div></section>
       <button className="verification-banner" onClick={() => navigate('/perfil/verificacion')}><span className="banner-icon">!</span><span><strong>Completa la verificación de tu negocio</strong><small>Aún no puedes ofertar, cobrar ni entregar.</small></span><b>→</b></button>
       <section className="metric-grid">{metrics.map((metric) => <article className="metric-card" key={metric.label}><div className={`metric-icon ${metric.tone}`}>{metric.tone === 'red' ? '↗' : metric.tone === 'purple' ? '$' : '⌁'}</div><div><p>{metric.label}</p><h2>{metric.value}</h2><small>{metric.helper}</small></div></article>)}</section>
-      <section className="content-grid"><article className="panel promo-panel"><div className="panel-heading"><div><p className="eyebrow">PROMOCIONES</p><h2>Impulsa tu negocio</h2></div><button className="icon-button">⋮</button></div><div className="promo-list"><div className="promo-art"><div><span>PUBLICA</span><strong>Tus mejores<br />ofertas aquí</strong><small>Llega a más clientes de tu zona.</small><a className="light-button" href="https://tiendabolsillo.com" target="_blank" rel="noreferrer">Conocer más <span>→</span></a></div><div className="promo-shape">%</div></div><div className="promo-art promo-second"><div><span>CRECE</span><strong>Conecta con<br />más clientes</strong><small>Haz visible tu negocio local.</small></div><div className="promo-shape">↗</div></div></div><div className="dots"><i className="selected" /><i /><i /></div></article><article className="panel metrics-panel"><div className="panel-heading"><div><p className="eyebrow">RESUMEN</p><h2>Mis métricas</h2></div><button className="period-button" onClick={() => navigate('/inicio/metricas')}>Ver detalle →</button></div><div className="empty-chart"><div className="chart-icon">▥</div><strong>Todavía no hay nada que medir</strong><p>Cuando respondas solicitudes, aquí verás cómo le va a tu negocio.</p><button className="text-button" onClick={() => navigate('/inicio/metricas')}>Ver métricas detalladas →</button></div></article></section>
+      <section className="content-grid"><article className="panel promo-panel"><div className="panel-heading"><div><p className="eyebrow">PROMOCIONES</p><h2>Impulsa tu negocio</h2></div><span className="promo-counter">{promoIndex + 1} / 2</span></div><div className="promo-list"><div className={`promo-art ${promoIndex === 1 ? 'promo-second' : ''}`}><div>{promoIndex === 0 ? <><span>PUBLICA</span><strong>Tus mejores<br />ofertas aquí</strong><small>Llega a más clientes de tu zona.</small><a className="light-button" href="https://tiendabolsillo.com" target="_blank" rel="noreferrer">Conocer más <span>→</span></a></> : <><span>CRECE</span><strong>Conecta con<br />más clientes</strong><small>Haz visible tu negocio local.</small><button className="light-button" onClick={() => navigate('/perfil/suscripciones')}>Ver opciones <span>→</span></button></>}</div><div className="promo-shape">{promoIndex === 0 ? '%' : '↗'}</div></div></div><div className="promo-controls"><button onClick={() => setPromoIndex(promoIndex === 0 ? 1 : 0)} aria-label="Publicidad anterior">←</button><div className="dots"><i className={promoIndex === 0 ? 'selected' : ''} /><i className={promoIndex === 1 ? 'selected' : ''} /></div><button onClick={() => setPromoIndex(promoIndex === 1 ? 0 : 1)} aria-label="Siguiente publicidad">→</button></div></article><article className="panel metrics-panel"><div className="panel-heading"><div><p className="eyebrow">RESUMEN</p><h2>Mis métricas</h2></div><button className="period-button" onClick={() => navigate('/inicio/metricas')}>Ver detalle →</button></div><div className="empty-chart"><div className="chart-icon">▥</div><strong>Todavía no hay nada que medir</strong><p>Cuando respondas solicitudes, aquí verás cómo le va a tu negocio.</p><button className="text-button" onClick={() => navigate('/inicio/metricas')}>Ver métricas detalladas →</button></div></article></section>
       <section className="quick-actions"><h2>Acciones rápidas</h2><div><button onClick={() => navigate('/perfil/verificacion')}><span>✦</span><strong>Completar perfil</strong><small>Habilita todas las funciones</small></button><button onClick={() => navigate('/perfil/direcciones')}><span>⌖</span><strong>Agregar dirección</strong><small>Registra un nuevo local</small></button><button onClick={() => navigate('/perfil')}><span>▤</span><strong>Ver configuración</strong><small>Administra tu negocio</small></button></div></section>
     </>
   )
@@ -177,7 +179,10 @@ function Dashboard() {
 
 function MetricsPage() {
   const [period, setPeriod] = useState('30 días')
-  return <AdminShell eyebrow="INICIO" title="Mis métricas" description="Consulta el rendimiento de tu negocio por periodo."><div className="metrics-filters"><button className={period === '7 días' ? 'selected' : ''} onClick={() => setPeriod('7 días')}>7 días</button><button className={period === '30 días' ? 'selected' : ''} onClick={() => setPeriod('30 días')}>30 días</button><button className={period === '90 días' ? 'selected' : ''} onClick={() => setPeriod('90 días')}>90 días</button><label className={period === 'personalizado' ? 'selected' : ''}>Elegir fechas<input type="date" onChange={() => setPeriod('personalizado')} /><span>▣</span></label></div><div className="date-range">{period === 'personalizado' ? <><label>Fecha de inicio<input type="date" /></label><label>Fecha final<input type="date" /></label><button className="primary-button">Aplicar periodo</button></> : <span>Periodo seleccionado: <strong>{period}</strong></span>}</div><div className="metrics-large-grid">{['Ofertas enviadas', 'Ventas concretadas', 'Tiempo promedio de respuesta', 'Ingresos generados'].map((item) => <article className="metric-card" key={item}><div className="metric-icon red">↗</div><div><p>{item}</p><h2>0</h2><small>Aún no hay datos en este periodo</small></div></article>)}</div><div className="module-empty compact-empty"><div className="large-empty-icon">▥</div><h2>No hay actividad para mostrar</h2><p>Cuando respondas solicitudes, aquí aparecerán tus resultados.</p></div></AdminShell>
+  const [startDate, setStartDate] = useState('')
+  const [endDate, setEndDate] = useState('')
+  const [calendarOpen, setCalendarOpen] = useState(false)
+  return <AdminShell eyebrow="INICIO" title="Mis métricas" description="Consulta el rendimiento de tu negocio por periodo."><div className="metrics-filters"><button className={period === '7 días' ? 'selected' : ''} onClick={() => setPeriod('7 días')}>7 días</button><button className={period === '30 días' ? 'selected' : ''} onClick={() => setPeriod('30 días')}>30 días</button><button className={period === '90 días' ? 'selected' : ''} onClick={() => setPeriod('90 días')}>90 días</button><button className={period === 'personalizado' ? 'selected' : ''} onClick={() => setCalendarOpen(!calendarOpen)}>Elegir fechas <span>▣</span></button></div>{calendarOpen && <div className="calendar-panel"><div><label>Fecha de inicio<input type="date" value={startDate} onChange={(event) => setStartDate(event.target.value)} /></label><label>Fecha final<input type="date" value={endDate} min={startDate} onChange={(event) => setEndDate(event.target.value)} /></label></div><button className="primary-button" disabled={!startDate || !endDate} onClick={() => { setPeriod('personalizado'); setCalendarOpen(false) }}>Aplicar fechas</button></div>}<div className="date-range"><span>Periodo seleccionado: <strong>{period === 'personalizado' && startDate && endDate ? `${startDate} al ${endDate}` : period}</strong></span></div><div className="metrics-large-grid">{['Ofertas enviadas', 'Ventas concretadas', 'Tiempo promedio de respuesta', 'Ingresos generados'].map((item) => <article className="metric-card" key={item}><div className="metric-icon red">↗</div><div><p>{item}</p><h2>0</h2><small>Aún no hay datos en este periodo</small></div></article>)}</div><div className="module-empty compact-empty"><div className="large-empty-icon">▥</div><h2>No hay actividad para mostrar</h2><p>Cuando respondas solicitudes, aquí aparecerán tus resultados.</p></div></AdminShell>
 }
 
 function RegistrationStartPage() {
@@ -228,7 +233,7 @@ function ProfilePage() {
     ['⏻', 'Activo para recibir pedidos', 'Próximamente', 'toggle'],
     ['✎', 'Editar perfil', 'Actualiza la información de tu negocio', '/perfil/editar'],
     ['✓', 'Verificar identidad', 'Completa la verificación para operar', '/perfil/verificacion'],
-    ['T', 'Tipo de letra', 'Predeterminada', 'font'],
+    ['T', 'Tipo de letra', 'Predeterminada', '/perfil/tipografia'],
     ['♧', 'Notificaciones confiables', 'Configura tus avisos', '/notificaciones'],
     ['⌖', 'Mis direcciones', 'Administra tus locales registrados', '/perfil/direcciones'],
     ['▣', 'Cuentas bancarias', 'Configura dónde recibir tus pagos', '/perfil/bancos'],
@@ -265,6 +270,11 @@ function BanksPage() {
 function EditProfilePage() {
   return <AdminShell title="Editar perfil" description="Actualiza la información visible de tu negocio."><div className="edit-card"><FieldPage label="Nombre comercial" defaultValue="Pangust System
   " /><FieldPage label="Teléfono de contacto" defaultValue="0958867933" /><label>Descripción del negocio<textarea defaultValue="Productos y servicios para tu hogar." /></label><button className="primary-button wide-button">Guardar cambios</button></div></AdminShell>
+}
+
+function TypographyPage() {
+  const [font, setFont] = useState('Nunito Sans')
+  return <AdminShell title="Tipo de letra" description="Personaliza la tipografía de la interfaz."><div className="font-options">{['Nunito Sans', 'Montserrat', 'Arial'].map((option) => <button className={font === option ? 'selected' : ''} key={option} onClick={() => setFont(option)}><span style={{ fontFamily: option }}>{option}</span><small style={{ fontFamily: option }}>Así se verá el texto de tu negocio</small>{font === option && <b>✓</b>}</button>)}</div><div className="account-status">Tipografía actual: <strong>{font}</strong></div></AdminShell>
 }
 
 function SubscriptionsPage() {

@@ -123,4 +123,11 @@ Archivos:
 - Los ejemplos de ofertas, cobros y entregas cambian según cada pestaña.
 - El panel promocional incluye más de un anuncio y el enlace externo funciona.
 
+## Etapa 9 — Personalización y controles interactivos
+
+- La campana usa un ícono integrado al estilo de la interfaz.
+- `Tipo de letra` permite escoger entre Nunito Sans, Montserrat y Arial.
+- `Elegir fechas` abre un panel con fecha inicial y final, validando el rango.
+- Las promociones tienen contador, navegación anterior/siguiente y acciones funcionales; los indicadores ahora representan anuncios reales.
+
 El flujo tomará como referencia las capturas de creación de negocio, selección de categorías, ubicación en mapa y confirmación exitosa.
