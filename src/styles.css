@@ -64,6 +64,8 @@ body { font-family: var(--app-font), sans-serif; }
 }
 .promo-art { transition: background .35s ease, transform .35s ease; }
 .promo-panel:hover .promo-art { transform: translateY(-2px); }
+.promo-swap { animation: promo-fade-in .45s ease both; }
+@keyframes promo-fade-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 .profile-button { padding: 5px 8px 5px 5px; border: 1px solid transparent; border-radius: 7px; transition: transform .18s ease, background-color .18s ease, border-color .18s ease, box-shadow .18s ease; }
 .profile-button:hover, .profile-button.profile-open { transform: translateY(-1px); background: #fff4f4; border-color: #f0b5b7; box-shadow: 0 6px 16px #18223518; }
 .profile-button:hover .avatar, .profile-button.profile-open .avatar { background: #ffdfe1; }

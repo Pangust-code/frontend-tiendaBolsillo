@@ -194,6 +194,12 @@ El flujo tomará como referencia las capturas de creación de negocio, selecció
 - Los iconos usan un fondo de acento separado para conservar jerarquía visual.
 - El hover tiene realce propio sin aumentar excesivamente la saturación.
 
+## Etapa 20 — Transición suave de promociones
+
+- El cambio automático entre publicidades ahora utiliza un desvanecido breve con un desplazamiento vertical mínimo.
+- La tarjeta conserva su espacio para evitar saltos en el panel.
+- La pausa al pasar el mouse y los indicadores de posición se mantienen sin cambios.
+
 ## Etapa 18 — Hover de filtros de métricas
 
 - Se reemplazó el hover rojo sólido de los periodos de métricas por un fondo neutro de alto contraste.
