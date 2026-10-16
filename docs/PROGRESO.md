@@ -228,6 +228,11 @@ El flujo tomará como referencia las capturas de creación de negocio, selecció
 - La selfie continúa disponible únicamente para persona natural.
 - El requisito documental obligatorio de persona jurídica queda compuesto por RUC, fotografías, cédula del representante legal y certificado bancario.
 
+## Etapa 25 — Espaciado y color documental
+
+- Se igualó el espacio entre cédula, nombramiento y certificado bancario del representante legal.
+- La cédula del representante legal y el certificado bancario ahora usan el mismo color neutro del nombramiento opcional.
+
 ## Etapa 18 — Hover de filtros de métricas
 
 - Se reemplazó el hover rojo sólido de los periodos de métricas por un fondo neutro de alto contraste.
